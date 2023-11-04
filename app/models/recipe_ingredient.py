@@ -14,7 +14,7 @@ class RecipeIngredient(db.Model):
   desc = db.Column(db.String(25), nullable=True)
 
   recipe = db.relationship('Recipe', back_populates='recipe_ingredients')
-  user_grocery_list_ingredients = db.relationship('UserGroceryListIngredient', back_populates='user', cascade="all, delete-orphan")
+  user_grocery_list_ingredients = db.relationship('UserGroceryListIngredient', back_populates='recipe_ingredient', cascade="all, delete-orphan")
 
   def to_dict(self):
     return {
