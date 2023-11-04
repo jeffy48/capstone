@@ -14,6 +14,9 @@ class Recipe(db.Model):
   public = db.Column(db.Boolean)
   image = db.Column(db.String)
 
+  user = db.relationship('User', back_populates='recipes')
+  recipe_ingredients = db.relationship('RecipeIngredient', back_populates='recipe', cascade="all, delete-orphan")
+
   def to_dict(self):
     return {
       'id': self.id,
@@ -24,5 +27,3 @@ class Recipe(db.Model):
       'public': self.public,
       'image': self.image
     }
-
-  user = db.relationship('User', back_populates='recipes')
