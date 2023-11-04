@@ -16,6 +16,10 @@ class Recipe(db.Model):
 
   user = db.relationship('User', back_populates='recipes')
   recipe_ingredients = db.relationship('RecipeIngredient', back_populates='recipe', cascade="all, delete-orphan")
+  recipe_instructions = db.relationship('RecipeInstruction', back_populates='recipe', cascade="all, delete-orphan")
+  collection_recipes = db.relationship('CollectionRecipe', back_populates='recipe', cascade="all, delete-orphan")
+  reviews = db.relationship('Review', back_populates='recipe', cascade="all, delete-orphan")
+
 
   def to_dict(self):
     return {
