@@ -12,7 +12,7 @@ class Recipe(db.Model):
   preptime = db.Column(db.Integer, nullable=False)
   difficulty = db.Column(db.String(10), nullable=False)
   public = db.Column(db.Boolean)
-  image = db.Column(db.String)
+  image = db.Column(db.String(255))
 
   user = db.relationship('User', back_populates='recipes')
   recipe_ingredients = db.relationship('RecipeIngredient', back_populates='recipe', cascade="all, delete-orphan")
