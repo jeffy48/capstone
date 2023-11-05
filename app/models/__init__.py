@@ -7,4 +7,4 @@ from .recipe_instruction import RecipeInstruction
 from .collection import Collection
 from .collection_recipe import CollectionRecipe
 from .review import Review
-from .UserGroceryListIngredient import UserGroceryListIngredient
+from .user_grocery_list_ingredient import UserGroceryListIngredient
