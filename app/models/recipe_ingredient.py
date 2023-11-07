@@ -9,7 +9,7 @@ class RecipeIngredient(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   recipe_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("recipes.id")), nullable=False)
   name = db.Column(db.String(25), nullable=False)
-  quantity = db.Column(db.Float, nullable=False)
+  quantity = db.Column(db.Numeric(scale=2), nullable=False)
   measurement = db.Column(db.String(25), nullable=False)
   desc = db.Column(db.String(25), nullable=True)
 

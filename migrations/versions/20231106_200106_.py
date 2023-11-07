@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: fb62902e7ed9
+Revision ID: 8557d8578662
 Revises:
-Create Date: 2023-11-04 16:01:43.913742
+Create Date: 2023-11-06 20:01:06.138846
 
 """
 from alembic import op
@@ -14,7 +14,7 @@ SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
-revision = 'fb62902e7ed9'
+revision = '8557d8578662'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -53,7 +53,7 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
     sa.Column('preptime', sa.Integer(), nullable=False),
-    sa.Column('difficulty', sa.String(length=10), nullable=False),
+    sa.Column('difficulty', sa.String(length=6), nullable=False),
     sa.Column('public', sa.Boolean(), nullable=True),
     sa.Column('image', sa.String(length=255), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
@@ -79,7 +79,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('recipe_id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=25), nullable=False),
-    sa.Column('quantity', sa.Float(), nullable=False),
+    sa.Column('quantity', sa.Numeric(scale=2), nullable=False),
     sa.Column('measurement', sa.String(length=25), nullable=False),
     sa.Column('desc', sa.String(length=25), nullable=True),
     sa.ForeignKeyConstraint(['recipe_id'], ['recipes.id'], ),
@@ -106,7 +106,7 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('recipe_id', sa.Integer(), nullable=False),
     sa.Column('content', sa.String(length=255), nullable=False),
-    sa.Column('rating', sa.Boolean(), nullable=False),
+    sa.Column('rating', sa.Numeric(scale=1), nullable=False),
     sa.ForeignKeyConstraint(['recipe_id'], ['recipes.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')

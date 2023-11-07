@@ -10,7 +10,7 @@ class Recipe(db.Model):
   user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
   name = db.Column(db.String(50), nullable=False)
   preptime = db.Column(db.Integer, nullable=False)
-  difficulty = db.Column(db.String(10), nullable=False)
+  difficulty = db.Column(db.String(6), nullable=False)
   public = db.Column(db.Boolean)
   image = db.Column(db.String(255))
 
