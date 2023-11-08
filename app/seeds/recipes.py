@@ -86,7 +86,6 @@ def seed_recipes():
     )
 
     for i in range(1, 9):
-        print(recipe1)
         variable_name = f"recipe{i}"
         recipe = locals()[variable_name]
         db.session.add(recipe)
