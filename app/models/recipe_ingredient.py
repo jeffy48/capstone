@@ -11,7 +11,7 @@ class RecipeIngredient(db.Model):
   name = db.Column(db.String(25), nullable=False)
   quantity = db.Column(db.Numeric(scale=2), nullable=False)
   measurement = db.Column(db.String(25), nullable=False)
-  desc = db.Column(db.String(25), nullable=True)
+  desc = db.Column(db.String(50), nullable=True)
 
   recipe = db.relationship('Recipe', back_populates='recipe_ingredients')
   user_grocery_list_ingredients = db.relationship('UserGroceryListIngredient', back_populates='recipe_ingredient', cascade="all, delete-orphan")

@@ -248,7 +248,7 @@ def seed_recipe_ingredients():
         name="beef trimmings",
         quantity=200,
         measurement="g",
-        desc="ask the butcher for these when trimming the fillet"
+        desc="ask the butcher"
     )
     recipe_ingredient39 = RecipeIngredient(
         recipe_id=4,
@@ -528,10 +528,10 @@ def seed_recipe_ingredients():
     )
     recipe_ingredient83 = RecipeIngredient(
         recipe_id=8,
-        name="cheddar cheese",
+        name="aged cheddar cheese",
         quantity=110,
         measurement="grams",
-        desc="good quality, slightly aged, or cheese of your choice"
+        desc="or cheese of your choice"
     )
     recipe_ingredient84 = RecipeIngredient(
         recipe_id=8,
