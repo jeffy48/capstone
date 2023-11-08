@@ -4,6 +4,6 @@ from wtforms.validators import DataRequired, Length
 
 class CollectionForm(FlaskForm):
     user_id = IntegerField('user_id', validators=[DataRequired(message="user_id is required and must be an integer")])
-    name = StringField('name', validators=[DataRequired(message="name is required and must be a string"), Length(min=2, max=50, message="length of name is invalid")])
+    name = StringField('name', validators=[DataRequired(message="name is required and must be a string"), Length(min=2, max=75, message="length of name is invalid")])
     desc = StringField('desc', validators=[DataRequired(message="desc is required and must be an string")])
     public = BooleanField('public', validators=[DataRequired(message="public is required and must be a boolean")])
