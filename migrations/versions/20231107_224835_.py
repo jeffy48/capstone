@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 8557d8578662
+Revision ID: 8c14b9dc513a
 Revises:
-Create Date: 2023-11-06 20:01:06.138846
+Create Date: 2023-11-07 22:48:35.874660
 
 """
 from alembic import op
@@ -14,7 +14,7 @@ SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
-revision = '8557d8578662'
+revision = '8c14b9dc513a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -52,7 +52,9 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
+    sa.Column('servings', sa.Integer(), nullable=False),
     sa.Column('preptime', sa.Integer(), nullable=False),
+    sa.Column('cooktime', sa.Integer(), nullable=False),
     sa.Column('difficulty', sa.String(length=6), nullable=False),
     sa.Column('public', sa.Boolean(), nullable=True),
     sa.Column('image', sa.String(length=255), nullable=True),

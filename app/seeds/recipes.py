@@ -47,7 +47,7 @@ def seed_recipes():
     recipe5 = Recipe(
         user_id=2,
         name="Gordan Ramsay's 10 Minute Burger" ,
-        servings=4,
+        servings=1,
         preptime=5,
         cooktime=10,
         difficulty='Easy',
@@ -84,26 +84,13 @@ def seed_recipes():
         public=True,
         image='https://i.imgur.com/odAXsqD.jpg'
     )
-    recipe9 = Recipe(
-        user_id=3,
-        name='Mexican Churros',
-        servings=3,
-        preptime=15,
-        cooktime=15,
-        difficulty='Medium',
-        public=False,
-        image='https://i.imgur.com/zt8wHSJ.jpg'
-    )
 
-    db.session.add(recipe1)
-    db.session.add(recipe2)
-    db.session.add(recipe3)
-    db.session.add(recipe4)
-    db.session.add(recipe5)
-    db.session.add(recipe6)
-    db.session.add(recipe7)
-    db.session.add(recipe8)
-    db.session.add(recipe9)
+    for i in range(1, 9):
+        print(recipe1)
+        variable_name = f"recipe{i}"
+        recipe = locals()[variable_name]
+        db.session.add(recipe)
+
     db.session.commit()
 
 
