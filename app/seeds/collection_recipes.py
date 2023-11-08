@@ -30,7 +30,7 @@ def seed_collection_recipes():
     )
     collection_recipe7 = CollectionRecipe(
         collection_id=2,
-        recipe_id=9
+        recipe_id=8
     )
     collection_recipe8 = CollectionRecipe(
         collection_id=3,
@@ -58,7 +58,7 @@ def seed_collection_recipes():
     )
     collection_recipe14 = CollectionRecipe(
         collection_id=4,
-        recipe_id=9
+        recipe_id=8
     )
     collection_recipe15 = CollectionRecipe(
         collection_id=5,
