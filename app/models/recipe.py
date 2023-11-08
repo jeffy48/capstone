@@ -8,7 +8,7 @@ class Recipe(db.Model):
 
   id = db.Column(db.Integer, primary_key=True)
   user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
-  name = db.Column(db.String(50), nullable=False)
+  name = db.Column(db.String(75), nullable=False)
   servings = db.Column(db.Integer, nullable=False)
   preptime = db.Column(db.Integer, nullable=False)
   cooktime = db.Column(db.Integer, nullable=False)

@@ -51,7 +51,7 @@ def upgrade():
     op.create_table('recipes',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=50), nullable=False),
+    sa.Column('name', sa.String(length=75), nullable=False),
     sa.Column('servings', sa.Integer(), nullable=False),
     sa.Column('preptime', sa.Integer(), nullable=False),
     sa.Column('cooktime', sa.Integer(), nullable=False),
