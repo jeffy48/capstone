@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 8c14b9dc513a
+Revision ID: dee2e836248e
 Revises:
-Create Date: 2023-11-07 22:48:35.874660
+Create Date: 2023-11-07 23:31:08.769330
 
 """
 from alembic import op
@@ -14,7 +14,7 @@ SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
-revision = '8c14b9dc513a'
+revision = 'dee2e836248e'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -38,8 +38,8 @@ def upgrade():
     op.create_table('collections',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=50), nullable=False),
-    sa.Column('desc', sa.String(length=255), nullable=False),
+    sa.Column('name', sa.String(length=75), nullable=False),
+    sa.Column('desc', sa.String(), nullable=False),
     sa.Column('public', sa.Boolean(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -94,7 +94,7 @@ def upgrade():
     op.create_table('recipe_instructions',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('recipe_id', sa.Integer(), nullable=False),
-    sa.Column('desc', sa.String(length=255), nullable=False),
+    sa.Column('desc', sa.String(), nullable=False),
     sa.Column('instruction_num', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['recipe_id'], ['recipes.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -107,7 +107,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('recipe_id', sa.Integer(), nullable=False),
-    sa.Column('content', sa.String(length=255), nullable=False),
+    sa.Column('content', sa.String(), nullable=False),
     sa.Column('rating', sa.Numeric(scale=1), nullable=False),
     sa.ForeignKeyConstraint(['recipe_id'], ['recipes.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),

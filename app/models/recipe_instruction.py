@@ -8,7 +8,7 @@ class RecipeInstruction(db.Model):
 
   id = db.Column(db.Integer, primary_key=True)
   recipe_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("recipes.id")), nullable=False)
-  desc = db.Column(db.String(255), nullable=False)
+  desc = db.Column(db.String, nullable=False)
   instruction_num = db.Column(db.Integer, nullable=False)
 
   recipe = db.relationship('Recipe', back_populates='recipe_instructions')
