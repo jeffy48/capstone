@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
-from app.models import User
+from app.models import User, Recipe
 
 user_routes = Blueprint('users', __name__)
 
@@ -23,3 +23,13 @@ def user(id):
     """
     user = User.query.get(id)
     return user.to_dict()
+
+# maybe nest this blueprint in recipe_routes.py instead? is there a better way to write this route?
+@user_routes.routes('/<int:user_id>/recipes')
+@login_required
+def get_user_recipes(user_id):
+    """
+    Query for a user's recipes by user_id and returns them in a list of recipe dictionaries
+    """
+    recipes = Recipe.query.filter_by(user_id=user_id).all()
+    return jsonify([recipe.to_dict() for recipe in recipes])
