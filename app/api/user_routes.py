@@ -25,7 +25,7 @@ def user(id):
     return user.to_dict()
 
 # maybe nest this blueprint in recipe_routes.py instead? is there a better way to write this route?
-@user_routes.routes('/<int:user_id>/recipes')
+@user_routes.route('/<int:user_id>/recipes')
 @login_required
 def get_user_recipes(user_id):
     """
