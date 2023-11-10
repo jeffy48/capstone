@@ -3,7 +3,7 @@ from flask_login import login_required
 from app.models import Collection, db, CollectionRecipe, Recipe
 from app.forms import CollectionForm, CollectionRecipeForm
 
-collection_routes = Blueprint('collection', __name__)
+collection_routes = Blueprint('collections', __name__)
 
 # do i need a get all collections and get a collection if im not going to use it? (would it be considered full crud if i only return a 'read' for get all user collections instead)
 

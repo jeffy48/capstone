@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import Recipe, db, RecipeIngredient, RecipeInstruction
+from app.models import Recipe, db, RecipeIngredient, RecipeInstruction, Review
 from app.forms import RecipeForm, RecipeIngredientForm, RecipeInstructionForm
 
 recipe_routes = Blueprint('recipes', __name__)
@@ -218,3 +218,11 @@ def delete_recipe_instruction(id):
         return instruction.to_dict()
 
     return {'errors': "Deletion failed: Instruction not found"}, 404
+
+@recipe_routes.route('/reviews/<int:id>')
+def get_recipe_reviews(id):
+    """
+    Get all reviews for a recipe
+    """
+    reviews = Review.query.filter_by(recipe_id=id).all()
+    return jsonify([review.to_dict() for review in reviews])

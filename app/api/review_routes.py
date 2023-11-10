@@ -1,0 +1,54 @@
+from flask import Blueprint, jsonify, request
+from flask_login import login_required
+from app.models import Review, db
+from app.forms import ReviewForm
+
+review_routes = Blueprint('reviews', __name__)
+
+@review_routes.route('/', methods=['POST'])
+def create_review():
+    """
+    A logged in user can create a new review for a recipe
+    """
+    form = ReviewForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        review = Review(
+            user_id = form.data['user_id'],
+            recipe_id = form.data['recipe_id'],
+            content = form.data['content'],
+            rating = form.data['rating']
+        )
+        db.session.add(review)
+        db.session.commit()
+
+        return review.to_dict()
+    return {'errors': form.errors}, 400
+
+@review_routes.route('/<int:id>', methods=['PUT'])
+def update_review(id):
+    """
+    A logged in user can edit a review they own for a recipe
+    """
+    form = ReviewForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        review = Review.query.get(id)
+        review.content = form.data['content']
+        review.rating = form.data['rating']
+        db.session.commit()
+
+        return review.to_dict()
+    return {'errors': form.errors}, 400
+
+@review_routes.route('/<int:id>', methods=['DELETE'])
+def delete_review(id):
+    """
+    A logged in user can delete a review they own for a recipe
+    """
+    review = Review.query.get(id)
+    if review:
+        db.session.delete(review)
+        db.session.commit()
+        return review.to_dict()
+    return {'errors': "Deletion failed: Collection not found"}, 404

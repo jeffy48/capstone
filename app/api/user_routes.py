@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
-from app.models import User, Recipe, Collection
+from app.models import User, Recipe, Collection, Review, UserGroceryListIngredient, RecipeIngredient, db
 
 user_routes = Blueprint('users', __name__)
 
@@ -43,3 +43,23 @@ def get_user_collections(user_id):
     """
     collections = Collection.query.filter_by(user_id=user_id).all()
     return jsonify([collection.to_dict() for collection in collections])
+
+@user_routes.route('/<int:id>/reviews')
+@login_required
+def get_user_reviews(id):
+    """
+    A logged in user can get all reviews they've created
+    """
+    reviews = Review.query.filter_by(user_id=id).all()
+    return jsonify([review.to_dict() for review in reviews])
+
+@user_routes.route('/<int:id>/grocery_list')
+@login_required
+def get_user_grocery_list(id):
+    """
+    A logged in user can get all the recipe ingredients in their grocery list
+    """
+    grocery_list = db.session.query(UserGroceryListIngredient, RecipeIngredient).join(RecipeIngredient, UserGroceryListIngredient.recipe_ingredient_id == RecipeIngredient.id).filter(UserGroceryListIngredient.user_id == id).all()
+    res = [ingredient[1] for ingredient in grocery_list]
+
+    return jsonify([ingredient.to_dict() for ingredient in res])
