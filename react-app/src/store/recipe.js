@@ -1,4 +1,4 @@
-const GET_All_RECIPES = "recipe/GET_ALL_RECIPES";
+const GET_ALL_RECIPES = "recipe/GET_ALL_RECIPES";
 const GET_USER_RECIPES = "recipe/GET_USER_RECIPES";
 const GET_RECIPE = "recipe/GET_RECIPE";
 const CREATE_RECIPE = "recipe/CREATE_RECIPE";
@@ -6,7 +6,7 @@ const UPDATE_RECIPE = "recipe/UPDATE_RECIPE";
 const DELETE_RECIPE = "recipe/DELETE_RECIPE";
 
 const get_all_recipes = (recipes) => ({
-    type: GET_All_RECIPES_ALL_RECIPES,
+    type: GET_ALL_RECIPES,
     payload: recipes
 });
 
@@ -39,7 +39,7 @@ export const get_all_recipes_thunk = () => async dispatch => {
     const res = await fetch('/api/recipes');
     try {
         const recipes = await res.json()
-        dispatch(get_recipes(recipes))
+        dispatch(get_all_recipes(recipes))
     }
     catch(error) {
         return error
@@ -117,7 +117,7 @@ const initialState = { all_recipes: [], user_recipes: [], recipe: {}, createdRec
 
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
-        case GET_RECIPES:
+        case GET_ALL_RECIPES:
             return {...state, all_recipes: action.payload}
         case GET_USER_RECIPES:
             return {...state, user_recipes: action.payload}
