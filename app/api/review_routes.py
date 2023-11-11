@@ -2,8 +2,18 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.models import Review, db
 from app.forms import ReviewForm
+from app.api.user_routes import user_routes
 
 review_routes = Blueprint('reviews', __name__)
+
+@user_routes.route('/<int:id>/reviews')
+@login_required
+def get_user_reviews(id):
+    """
+    A logged in user can get all reviews they've created
+    """
+    reviews = Review.query.filter_by(user_id=id).all()
+    return jsonify([review.to_dict() for review in reviews])
 
 @review_routes.route('/', methods=['POST'])
 def create_review():

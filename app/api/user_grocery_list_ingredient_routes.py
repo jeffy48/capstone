@@ -1,9 +1,21 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import Review, db, UserGroceryListIngredient
-from app.forms import ReviewForm, UserGroceryListIngredientForm
+from app.models import db, UserGroceryListIngredient, RecipeIngredient
+from app.forms import UserGroceryListIngredientForm
+from app.api.user_routes import user_routes
 
 user_grocery_list_ingredient_routes = Blueprint('grocery_list', __name__)
+
+@user_routes.route('/<int:id>/grocery_list')
+@login_required
+def get_user_grocery_list(id):
+    """
+    A logged in user can get all the recipe ingredients in their grocery list
+    """
+    grocery_list = db.session.query(UserGroceryListIngredient, RecipeIngredient).join(RecipeIngredient, UserGroceryListIngredient.recipe_ingredient_id == RecipeIngredient.id).filter(UserGroceryListIngredient.user_id == id).all()
+    res = [ingredient[1] for ingredient in grocery_list]
+
+    return jsonify([ingredient.to_dict() for ingredient in res])
 
 @user_grocery_list_ingredient_routes.route('/<int:id>', methods=['POST'])
 @login_required

@@ -2,10 +2,21 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.models import Collection, db, CollectionRecipe, Recipe
 from app.forms import CollectionForm, CollectionRecipeForm
+from app.api.user_routes import user_routes
 
 collection_routes = Blueprint('collections', __name__)
 
 # do i need a get all collections and get a collection if im not going to use it? (would it be considered full crud if i only return a 'read' for get all user collections instead)
+
+# maybe nest this blueprint in collection_routes.py instead? is there a better way to write this route?
+@user_routes.route('/<int:user_id>/collections')
+@login_required
+def get_user_collections(user_id):
+    """
+    Query for a user's collections by user_id and returns them in a list of collection dictionaries
+    """
+    collections = Collection.query.filter_by(user_id=user_id).all()
+    return jsonify([collection.to_dict() for collection in collections])
 
 @collection_routes.route('/', methods=['POST'])
 @login_required

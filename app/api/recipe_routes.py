@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.models import Recipe, db, RecipeIngredient, RecipeInstruction, Review
 from app.forms import RecipeForm, RecipeIngredientForm, RecipeInstructionForm
+from app.api.user_routes import user_routes
 
 recipe_routes = Blueprint('recipes', __name__)
 
@@ -14,6 +15,16 @@ def get_all_recipes():
     Query for all recipes and returns them in a list of recipe dictionaries
     """
     recipes = Recipe.query.all()
+    return jsonify([recipe.to_dict() for recipe in recipes])
+
+# maybe nest this blueprint in recipe_routes.py instead? is there a better way to write this route?
+@user_routes.route('/<int:user_id>/recipes')
+@login_required
+def get_user_recipes(user_id):
+    """
+    Query for a user's recipes by user_id and returns them in a list of recipe dictionaries
+    """
+    recipes = Recipe.query.filter_by(user_id=user_id).all()
     return jsonify([recipe.to_dict() for recipe in recipes])
 
 # maybe get rid of login required since you dont have to be logged in to see a recipe
