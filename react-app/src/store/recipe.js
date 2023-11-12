@@ -5,41 +5,41 @@ const CREATE_RECIPE = "recipe/CREATE_RECIPE";
 const UPDATE_RECIPE = "recipe/UPDATE_RECIPE";
 const DELETE_RECIPE = "recipe/DELETE_RECIPE";
 
-const get_all_recipes = (recipes) => ({
+const getAllRecipes = (recipes) => ({
     type: GET_ALL_RECIPES,
     payload: recipes
 });
 
-const get_user_recipes = (recipes) => ({
+const getUserRecipes = (recipes) => ({
     type: GET_USER_RECIPES,
     payload: recipes
 });
 
-const get_recipe = (recipe) => ({
+const getRecipe = (recipe) => ({
     type: GET_RECIPE,
     payload: recipe
 });
 
-const create_recipe = (recipe) => ({
+const createRecipe = (recipe) => ({
     type: CREATE_RECIPE,
     payload: recipe
 });
 
-const update_recipe = (recipe) => ({
+const updateRecipe = (recipe) => ({
     type: UPDATE_RECIPE,
     payload: recipe
 });
 
-const delete_recipe = (recipe) => ({
+const deleteRecipe = (recipe) => ({
     type: DELETE_RECIPE,
     payload: recipe
 })
 
-export const get_all_recipes_thunk = () => async dispatch => {
+export const getAllRecipesThunk = () => async dispatch => {
     const res = await fetch('/api/recipes');
     try {
         const recipes = await res.json()
-        dispatch(get_all_recipes(recipes))
+        dispatch(getAllRecipes(recipes))
     }
     catch(error) {
         return error
@@ -47,29 +47,29 @@ export const get_all_recipes_thunk = () => async dispatch => {
 };
 
 // might have to rethink and change params
-export const get_user_recipes_thunk = (user_id) => async dispatch => {
-    const res = await fetch(`/api/users/${user_id}/recipes`);
+export const getUserRecipesThunk = (userId) => async dispatch => {
+    const res = await fetch(`/api/users/${userId}/recipes`);
     try {
         const recipes = await res.json()
-        dispatch(get_user_recipes(recipes))
+        dispatch(getUserRecipes(recipes))
     }
     catch(error) {
         return error
     }
 };
 
-export const get_recipe_thunk = (recipe_id) => async dispatch => {
-    const res = await fetch(`/api/recipes/${recipe_id}`);
+export const getRecipeThunk = (recipeId) => async dispatch => {
+    const res = await fetch(`/api/recipes/${recipeId}`);
     try {
         const recipe = await res.json()
-        dispatch(get_recipe(recipe))
+        dispatch(getRecipe(recipe))
     }
     catch(error) {
         return error
     }
 };
 
-export const create_recipe_thunk = (payload) => async dispatch => {
+export const createRecipeThunk = (payload) => async dispatch => {
     const res = await fetch('/api/recipes', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -77,50 +77,50 @@ export const create_recipe_thunk = (payload) => async dispatch => {
     });
     try {
         const recipe = await res.json()
-        dispatch(create_recipe(recipe))
+        dispatch(createRecipe(recipe))
     }
     catch(error) {
         return error
     }
 };
 
-export const update_recipe_thunk = (recipe_id, payload) => async dispatch => {
-    const res = await fetch(`/api/recipes/${recipe_id}`, {
+export const updateRecipeThunk = (recipeId, payload) => async dispatch => {
+    const res = await fetch(`/api/recipes/${recipeId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
     });
     try {
         const recipe = await res.json()
-        dispatch(update_recipe(recipe))
+        dispatch(updateRecipe(recipe))
     }
     catch(error) {
         return error
     }
 };
 
-export const delete_recipe_thunk = (recipe_id) => async dispatch => {
-    const res = await fetch(`/api/recipes/${recipe_id}`, {
+export const deleteRecipeThunk = (recipeId) => async dispatch => {
+    const res = await fetch(`/api/recipes/${recipeId}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" }
     });
     try {
         const recipe = await res.json()
-        dispatch(delete_recipe(recipe))
+        dispatch(deleteRecipe(recipe))
     }
     catch(error) {
         return error
     }
 };
 
-const initialState = { all_recipes: [], user_recipes: [], recipe: {}, createdRecipe: {}, updatedRecipe: {}, deletedRecipe: {} };
+const initialState = { allRecipes: [], userRecipes: [], recipe: {}, createdRecipe: {}, updatedRecipe: {}, deletedRecipe: {} };
 
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
         case GET_ALL_RECIPES:
-            return {...state, all_recipes: action.payload}
+            return {...state, allRrecipes: action.payload}
         case GET_USER_RECIPES:
-            return {...state, user_recipes: action.payload}
+            return {...state, userRecipes: action.payload}
         case GET_RECIPE:
             return {...state, recipe: action.payload}
         case CREATE_RECIPE:
