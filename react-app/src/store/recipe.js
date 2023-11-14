@@ -118,7 +118,7 @@ const initialState = { allRecipes: [], userRecipes: [], recipe: {}, createdRecip
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
         case GET_ALL_RECIPES:
-            return {...state, allRrecipes: action.payload}
+            return {...state, allRecipes: action.payload}
         case GET_USER_RECIPES:
             return {...state, userRecipes: action.payload}
         case GET_RECIPE:
