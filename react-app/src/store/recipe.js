@@ -73,7 +73,7 @@ export const createRecipeThunk = (payload) => async dispatch => {
     const res = await fetch('/api/recipes', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(payload)
     });
     try {
         const recipe = await res.json()
@@ -88,7 +88,7 @@ export const updateRecipeThunk = (recipeId, payload) => async dispatch => {
     const res = await fetch(`/api/recipes/${recipeId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(payload)
     });
     try {
         const recipe = await res.json()

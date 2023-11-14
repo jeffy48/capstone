@@ -9,6 +9,11 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.recipe_routes import recipe_routes
 from .api.collection_routes import collection_routes
+from .api.collection_recipe_routes import collection_recipe_routes
+from .api.ingredient_routes import ingredient_routes
+from .api.instruction_routes import instruction_routes
+from .api.review_routes import review_routes
+from .api.user_grocery_list_ingredient_routes import user_grocery_list_ingredient_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -32,6 +37,11 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(recipe_routes, url_prefix='/api/recipes')
 app.register_blueprint(collection_routes, url_prefix='/api/collections')
+app.register_blueprint(collection_recipe_routes, url_prefix='/api/collection-recipes')
+app.register_blueprint(ingredient_routes, url_prefix='/api/ingredients')
+app.register_blueprint(instruction_routes, url_prefix='/api/instructions')
+app.register_blueprint(review_routes, url_prefix='/api/reviews')
+app.register_blueprint(user_grocery_list_ingredient_routes, url_prefix='/api/grocery-list-ingredients')
 db.init_app(app)
 Migrate(app, db)
 

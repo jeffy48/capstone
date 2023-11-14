@@ -3,16 +3,25 @@ from flask_login import login_required
 from app.models import Review, db
 from app.forms import ReviewForm
 from app.api.user_routes import user_routes
+from app.api.recipe_routes import recipe_routes
 
 review_routes = Blueprint('reviews', __name__)
 
-@user_routes.route('/<int:id>/reviews')
+@recipe_routes.route('/<int:recipe_id/reviews')
+def get_recipe_reviews(recipe_id):
+    """
+    Get all reviews for a recipe
+    """
+    reviews = Review.query.filter_by(recipe_id=recipe_id).all()
+    return jsonify([review.to_dict() for review in reviews])
+
+@user_routes.route('/<int:user_id>/reviews')
 @login_required
-def get_user_reviews(id):
+def get_user_reviews(user_id):
     """
     A logged in user can get all reviews they've created
     """
-    reviews = Review.query.filter_by(user_id=id).all()
+    reviews = Review.query.filter_by(user_id=user_id).all()
     return jsonify([review.to_dict() for review in reviews])
 
 @review_routes.route('/', methods=['POST'])
