@@ -1,19 +1,28 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import Review, db
+from app.models import Review, db, User
 from app.forms import ReviewForm
 from app.api.user_routes import user_routes
 from app.api.recipe_routes import recipe_routes
 
 review_routes = Blueprint('reviews', __name__)
 
-@recipe_routes.route('/<int:recipe_id/reviews')
+@recipe_routes.route('/<int:recipe_id>/reviews')
 def get_recipe_reviews(recipe_id):
     """
     Get all reviews for a recipe
     """
-    reviews = Review.query.filter_by(recipe_id=recipe_id).all()
-    return jsonify([review.to_dict() for review in reviews])
+    # reviews = Review.query.filter_by(recipe_id=recipe_id).all()
+    # return jsonify([review.to_dict() for review in reviews])
+    reviews = db.session.query(Review, User).join(User, Review.user_id == User.id).filter(Review.recipe_id == recipe_id).all()
+    print(reviews[0])
+    res = []
+    for i in range(len(reviews)):
+        reviewObj = {}
+        reviewObj.update(reviews[i][0].to_dict())
+        reviewObj.update(reviews[i][1].to_dict_username())
+        res.append(reviewObj)
+    return res
 
 @user_routes.route('/<int:user_id>/reviews')
 @login_required

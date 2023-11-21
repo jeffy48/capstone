@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getAllRecipesThunk } from "../../store/recipe";
-import './AllRecipesPage.css'
+import { getUserRecipesThunk } from "../../store/recipe";
 
-function AllRecipesPage() {
+function MyRecipesPage() {
     const dispatch = useDispatch()
-    const allRecipes = useSelector(state => state.recipe.allRecipes);
+    const user = useSelector(state => state.session.user);
+    // was getting typeerror: reading undefined null for id. code below will set the id variable after checking if user is not null
+    const userId = user ? user.id : null;
+    const userRecipes = useSelector(state => state.recipe.userRecipes);
 
     useEffect(() => {
-        dispatch(getAllRecipesThunk());
+        dispatch(getUserRecipesThunk(userId));
     }, [dispatch])
 
     return (
         <div id="all-recipes-page">
-            <h1>Explore All Recipes</h1>
+            <h1>Your Recipes</h1>
             <div className="recipe-wrapper">
-                {allRecipes.map(recipe => (
+                {userRecipes.map(recipe => (
                     <NavLink
                         key={recipe.id}
                         className="recipe-card"
@@ -37,4 +39,4 @@ function AllRecipesPage() {
     )
 }
 
-export default AllRecipesPage;
+export default MyRecipesPage;

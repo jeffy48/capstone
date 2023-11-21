@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import session from './session'
 import recipe from './recipe'
 import recipeIngredient from './recipeIngredient'
+import recipeInstruction from './recipeInstruction'
 import collection from './collection'
 import collectionRecipe from './collectionRecipe'
 import review from './review'
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   session,
   recipe,
   recipeIngredient,
+  recipeInstruction,
   collection,
   collectionRecipe,
   review,

@@ -27,7 +27,7 @@ export const getRecipeInstructionsThunk = (recipeId) => async dispatch => {
 	const res = await fetch(`/api/recipes/${recipeId}/instructions`);
 	try {
 		const instructions = await res.json();
-		dispatch(getRecipeInstructions(ingredients));
+		dispatch(getRecipeInstructions(instructions));
 	}
 	catch(error) {
 		return error

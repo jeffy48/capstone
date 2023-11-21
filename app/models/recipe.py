@@ -28,7 +28,9 @@ class Recipe(db.Model):
       'id': self.id,
       'user_id': self.user_id,
       'name': self.name,
+      'servings': self.servings,
       'preptime': self.preptime,
+      'cooktime': self.cooktime,
       'difficulty': self.difficulty,
       'public': self.public,
       'image': self.image

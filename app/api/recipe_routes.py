@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import Recipe, db, RecipeIngredient, RecipeInstruction, Review
+from app.models import Recipe, db, User
 from app.forms import RecipeForm, RecipeIngredientForm, RecipeInstructionForm
 from app.api.user_routes import user_routes
 
@@ -34,8 +34,15 @@ def get_recipe(id):
     """
     Query for one recipe by id and returns recipe dictionary
     """
-    recipe = Recipe.query.get(id)
-    return recipe.to_dict()
+    # recipe = Recipe.query.get(id)
+    # return recipe.to_dict()
+    recipe = db.session.query(Recipe, User).join(User, Recipe.user_id == User.id).filter(Recipe.id == id).one()
+    res = {}
+    res.update(recipe[0].to_dict())
+    res.update(recipe[1].to_dict_username())
+    print(res)
+    return jsonify(res)
+
 
 @recipe_routes.route('/', methods=['POST'])
 @login_required

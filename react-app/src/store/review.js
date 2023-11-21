@@ -29,8 +29,8 @@ const deleteReview = (review) => ({
     payload: review
 })
 
-export const getRecipeReviewsThunk = () => async dispatch => {
-    const res = await fetch('/api/reviews');
+export const getRecipeReviewsThunk = (recipeId) => async dispatch => {
+    const res = await fetch(`/api/recipes/${recipeId}/reviews`);
     try {
         const reviews = await res.json()
         dispatch(getRecipeReviews(reviews))
