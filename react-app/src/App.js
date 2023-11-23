@@ -5,9 +5,10 @@ import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
-import AllRecipesPage from "./components/AllRecipesPage";
+import AllRecipesPage from "./components/Recipes/AllRecipesPage";
 import UserRecipesPage from "./components/MyRecipesPage";
 import RecipePage from "./components/RecipePage";
+import CreateRecipePage from "./components/CreateRecipePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route path="/my-recipes">
             <UserRecipesPage />
+          </Route>
+          <Route path="/recipes/create" >
+            <CreateRecipePage />
           </Route>
           <Route path="/recipes/:recipeId">
             <RecipePage />

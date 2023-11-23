@@ -70,16 +70,19 @@ export const getRecipeThunk = (recipeId) => async dispatch => {
 };
 
 export const createRecipeThunk = (payload) => async dispatch => {
-    const res = await fetch('/api/recipes', {
+    const res = await fetch('/api/recipes/', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
     });
     try {
         const recipe = await res.json()
+        console.log(recipe)
         dispatch(createRecipe(recipe))
+        return recipe
     }
     catch(error) {
+        console.log("hi", error)
         return error
     }
 };

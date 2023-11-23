@@ -5,3 +5,8 @@
 .hidden {
   display: none;
 }
+
+.icon {
+  height: 2%;
+  width: 2%;
+}
