@@ -3,3 +3,7 @@ a {
     color: black;
     cursor: pointer;
 }
+
+h1 {
+    font-family: 'Mulish', sans-serif;
+}

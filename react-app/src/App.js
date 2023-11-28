@@ -9,6 +9,7 @@ import AllRecipesPage from "./components/Recipes/AllRecipesPage";
 import UserRecipesPage from "./components/MyRecipesPage";
 import RecipePage from "./components/RecipePage";
 import CreateRecipePage from "./components/CreateRecipePage";
+import HomePage from "./components/HomePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -39,6 +40,9 @@ function App() {
           </Route>
           <Route path="/recipes">
             <AllRecipesPage />
+          </Route>
+          <Route path="/">
+            <HomePage />
           </Route>
         </Switch>
       )}
