@@ -24,9 +24,9 @@ const updateReview = (review) => ({
     payload: review
 });
 
-const deleteReview = (review) => ({
+const deleteReview = (reviewId) => ({
     type: DELETE_REVIEW,
-    payload: review
+    payload: reviewId
 })
 
 export const getRecipeReviewsThunk = (recipeId) => async dispatch => {
@@ -89,14 +89,14 @@ export const deleteReviewThunk = (reviewId) => async dispatch => {
     });
     try {
         const review = await res.json()
-        dispatch(deleteReview(review))
+        dispatch(deleteReview(review.id))
     }
     catch(error) {
         return error
     }
 };
 
-const initialState = { recipeReviews: [], userReviews: [], createdReview: {}, updatedReview: {}, deletedReview: {} };
+const initialState = { recipeReviews: [], userReviews: [], createdReview: {}, updatedReview: {} };
 
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
@@ -109,7 +109,8 @@ export default function reducer(state = initialState, action) {
         case UPDATE_REVIEW:
             return {...state, updatedReview: action.payload}
         case DELETE_REVIEW:
-            return {...state, deletedReview: action.payload}
+            const updatedReviews = state.userReviews.filter(review => review.id !== action.payload)
+            return { ...state, userReviews: updatedReviews, deletedReview: action.payload };
 		default:
 			return state;
 	}

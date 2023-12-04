@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import Review, db, User
+from app.models import Review, db, User, Recipe
 from app.forms import ReviewForm
 from app.api.user_routes import user_routes
 from app.api.recipe_routes import recipe_routes
@@ -30,8 +30,18 @@ def get_user_reviews(user_id):
     """
     A logged in user can get all reviews they've created
     """
-    reviews = Review.query.filter_by(user_id=user_id).all()
-    return jsonify([review.to_dict() for review in reviews])
+    reviews = db.session.query(Review, User, Recipe).join(User, Review.user_id == User.id).join(Recipe, Review.recipe_id == Recipe.id).filter(Review.user_id == user_id).all()
+    res = []
+    print(reviews)
+    for i in range(len(reviews)):
+        reviewObj = {}
+        reviewObj.update(reviews[i][0].to_dict())
+        reviewObj.update(reviews[i][1].to_dict_username())
+        reviewObj.update(reviews[i][2].to_dict_name())
+        res.append(reviewObj)
+    return res
+    # reviews = Review.query.filter_by(user_id=user_id).all()
+    # return jsonify([review.to_dict() for review in reviews])
 
 @review_routes.route('/', methods=['POST'])
 def create_review():

@@ -2,8 +2,10 @@
 a {
     color: black;
     cursor: pointer;
+    font-family: 'Mulish', sans-serif;
+    text-decoration: none;
 }
 
-h1 {
+* {
     font-family: 'Mulish', sans-serif;
 }

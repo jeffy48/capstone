@@ -1,12 +1,33 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import Collection, db, CollectionRecipe, Recipe
+from app.models import Collection, db, CollectionRecipe, Recipe, User
 from app.forms import CollectionForm, CollectionRecipeForm
 from app.api.user_routes import user_routes
 
 collection_routes = Blueprint('collections', __name__)
 
+@collection_routes.route("/<int:collection_id>")
+def get_collection(collection_id):
+    collection = db.session.query(Collection, User).join(User, Collection.user_id == User.id).filter(Collection.id == collection_id).one()
+    collectionObj = {}
+    collectionObj.update(collection[0].to_dict())
+    collectionObj.update(collection[1].to_dict_username())
+    return collectionObj
+
 # do i need a get all collections and get a collection if im not going to use it? (would it be considered full crud if i only return a 'read' for get all user collections instead)
+@collection_routes.route('/')
+def get_all_collections():
+    collections = db.session.query(Collection, User).join(User, Collection.user_id == User.id).filter(Collection.public == True).all()
+    res = []
+    for i in range(len(collections)):
+        collectionsObj = {}
+        collectionsObj.update(collections[i][0].to_dict())
+        collectionsObj.update(collections[i][1].to_dict_username())
+        res.append(collectionsObj)
+    return res
+    # collections = Collection.query.filter_by(public=True).all()
+    # return jsonify([collection.to_dict() for collection in collections])
+
 
 # maybe nest this blueprint in collection_routes.py instead? is there a better way to write this route?
 @user_routes.route('/<int:user_id>/collections')

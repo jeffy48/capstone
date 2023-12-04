@@ -14,7 +14,7 @@ def get_all_recipes():
     """
     Query for all recipes and returns them in a list of recipe dictionaries
     """
-    recipes = Recipe.query.all()
+    recipes = Recipe.query.filter_by(public=True).all()
     return jsonify([recipe.to_dict() for recipe in recipes])
 
 # maybe nest this blueprint in recipe_routes.py instead? is there a better way to write this route?

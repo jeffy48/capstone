@@ -76,6 +76,7 @@ function HomePage() {
             <div className="home-banner-2"></div>
 
             <div className="home-credits">
+                <a href="https://www.pexels.com/photo/kitchen-knife-on-table-349609/">Photo by Lukas</a>
                 <a href="https://www.flaticon.com/free-icons/cookbook" title="cookbook icons">Cookbook icons created by Us and Up - Flaticon</a>
                 <a href="https://www.flaticon.com/free-icons/shopping-list" title="shopping list icons">Shopping list icons created by IconBaandar - Flaticon</a>
                 <a href="https://www.flaticon.com/free-icons/collection" title="collection icons">Collection icons created by Pixel perfect - Flaticon</a>

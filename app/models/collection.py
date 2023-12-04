@@ -23,3 +23,11 @@ class Collection(db.Model):
       'desc': self.desc,
       'public': self.public
     }
+
+  def to_dict_collections(self):
+    return {
+      'collection_user_id': self.user_id,
+      'collection_name': self.name,
+      'collection_desc': self.desc,
+      'collection_public': self.public
+    }

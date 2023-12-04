@@ -10,6 +10,11 @@ import UserRecipesPage from "./components/MyRecipesPage";
 import RecipePage from "./components/RecipePage";
 import CreateRecipePage from "./components/CreateRecipePage";
 import HomePage from "./components/HomePage";
+import MyReviewsPage from "./components/MyReviewsPage";
+import AllCollectionsPage from "./components/AllCollectionsPage";
+import MyCollectionsPage from "./components/MyCollectionsPage";
+import CreateCollectionPage from "./components/CreateCollectionPage";
+import CollectionPage from "./components/CollectionPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,17 +34,32 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/my-recipes">
+          <Route path="/myreviews" >
+            <MyReviewsPage />
+          </Route>
+          <Route path="/myrecipes">
             <UserRecipesPage />
+          </Route>
+          <Route path="/mycollections" >
+            <MyCollectionsPage />
           </Route>
           <Route path="/recipes/create" >
             <CreateRecipePage />
           </Route>
+          <Route path="/collections/create" >
+            <CreateCollectionPage />
+          </Route>
           <Route path="/recipes/:recipeId">
             <RecipePage />
           </Route>
+          <Route path="/collections/:collectionId">
+            <CollectionPage />
+          </Route>
           <Route path="/recipes">
             <AllRecipesPage />
+          </Route>
+          <Route path="/collections" >
+            <AllCollectionsPage />
           </Route>
           <Route path="/">
             <HomePage />

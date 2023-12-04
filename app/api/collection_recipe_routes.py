@@ -1,19 +1,29 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import  db, CollectionRecipe, Recipe
+from app.models import  db, CollectionRecipe, Recipe, Collection, User
 from app.forms import CollectionRecipeForm
 from app.api.collection_routes import collection_routes
 
 collection_recipe_routes = Blueprint('collection-recipes', __name__)
 
 @collection_routes.route('/<int:collection_id>/recipes')
-@login_required
 def get_collection_recipes(collection_id):
     """
     Get all recipes by collection id
     """
-    recipes = db.session.query(CollectionRecipe, Recipe).join(Recipe, CollectionRecipe.recipe_id == Recipe.id).filter(CollectionRecipe.collection_id == collection_id).all()
-    res = [recipe[1] for recipe in recipes]
+    recipes = db.session.query(CollectionRecipe, Recipe, Collection, User).join(Recipe, CollectionRecipe.recipe_id == Recipe.id).join(Collection, CollectionRecipe.collection_id == Collection.id).join(User, Collection.user_id == User.id).filter(CollectionRecipe.collection_id == collection_id).all()
+    res = []
+    print(recipes)
+    for i in range(len(recipes)):
+        recipeObj = {}
+        recipeObj.update(recipes[i][0].to_dict())
+        recipeObj.update(recipes[i][1].to_dict_collections())
+        recipeObj.update(recipes[i][2].to_dict_collections())
+        recipeObj.update(recipes[i][3].to_dict_username())
+        res.append(recipeObj)
+    return res
+    # recipes = db.session.query(CollectionRecipe, Recipe).join(Recipe, CollectionRecipe.recipe_id == Recipe.id).filter(CollectionRecipe.collection_id == collection_id).all()
+    # res = [recipe[1] for recipe in recipes]
 
     return jsonify([recipe.to_dict() for recipe in res])
 

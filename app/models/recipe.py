@@ -35,3 +35,20 @@ class Recipe(db.Model):
       'public': self.public,
       'image': self.image
     }
+
+  def to_dict_name(self):
+    return {
+      'recipe_name': self.name
+    }
+
+  def to_dict_collections(self):
+    return {
+      'recipe_user_id': self.user_id,
+      'recipe_name': self.name,
+      'recipe_servings': self.servings,
+      'recipe_preptime': self.preptime,
+      'recipe_cooktime': self.cooktime,
+      'recipe_difficulty': self.difficulty,
+      'recipe_public': self.public,
+      'recipe_image': self.image
+    }

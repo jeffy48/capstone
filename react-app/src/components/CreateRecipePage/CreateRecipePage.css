@@ -1,0 +1,48 @@
+.create-recipe {
+    background-color: rgb(231, 231, 231);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.recipe-form {
+    background-color: white;
+    margin-left: 600px;
+    margin-right: 600px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 300px;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    row-gap: 20px;
+}
+
+.recipe-form > h1 {
+    margin: 0;
+    align-self: center;
+}
+
+.recipe-form > label {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+
+.recipe-form input {
+    height: 20px;
+}
+
+.create-recipe-error {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.recipe-form > button {
+    width: 150px;
+    height: 30px;
+    align-self: center;
+    background-color: rgb(18, 235, 109);
+    color:white;
+    border: 1px solid rgb(0, 0, 0);
+}
