@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCollectionsThunk, getUserCollectionsThunk } from "../../store/collection";
+import { getUserCollectionsThunk } from "../../store/collection";
 import { NavLink, useHistory } from "react-router-dom";
 
 function MyCollectionsPage() {

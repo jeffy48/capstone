@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, NavLink } from "react-router-dom";
-import { deleteReviewThunk, getUserReviewsThunk } from "../../store/review";
-import OpenModalButton from "../OpenModalButton";
-import DeleteReviewModal from "../DeleteReviewModal";
+import { getUserReviewsThunk } from "../../store/review";
+import OpenModalButton from "../Modals/OpenModalButton";
+import DeleteReviewModal from "../Modals/DeleteReviewModal";
 import './MyReviewsPage.css'
 
 function MyReviewsPage() {

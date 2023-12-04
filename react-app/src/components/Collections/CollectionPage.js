@@ -5,8 +5,8 @@ import { getCollectionRecipesThunk } from "../../store/collectionRecipe";
 import { getCollectionThunk } from "../../store/collection";
 import './CollectionPage.css'
 import defaultImage from "../../images/default.jpg"
-import EditCollectionModal from "../EditCollectionModal";
-import OpenModalButton from "../OpenModalButton";
+import EditCollectionModal from "../Modals/EditCollectionModal";
+import OpenModalButton from "../Modals/OpenModalButton";
 
 function CollectionPage() {
     const dispatch = useDispatch()

@@ -1,5 +1,5 @@
 import "./HomePage.css"
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllRecipesThunk } from "../../store/recipe"
 import { NavLink, useHistory } from "react-router-dom"
@@ -73,7 +73,7 @@ function HomePage() {
             </div>
             )}
 
-            <div className="home-banner-2"></div>
+            <div className="home-banner-2"/>
 
             <div className="home-credits">
                 <a href="https://www.pexels.com/photo/kitchen-knife-on-table-349609/">Photo by Lukas</a>

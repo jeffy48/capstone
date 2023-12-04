@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createRecipeThunk } from "../../store/recipe";
@@ -26,11 +26,7 @@ function CreateRecipePage() {
         setErrors({});
         let payloadPrivacy;
 
-        if (privacy === "true") {
-            payloadPrivacy = true
-        } else {
-            payloadPrivacy = false
-        }
+        payloadPrivacy = privacy === "true";
 
         const payload = {
             user_id: user.id,

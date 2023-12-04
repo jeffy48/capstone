@@ -1,58 +1,53 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { createCollectionThunk } from "../../store/collection";
+import { updateCollectionThunk } from "../../store/collection";
+import { useModal } from '../../context/Modal'
+import { useDispatch } from "react-redux";
+import "./EditCollectionModal.css"
 
-function CreateCollectionPage() {
-    const dispatch = useDispatch();
-    const history = useHistory();
-    const user = useSelector(state => state.session.user)
+function EditCollectionModal({ collectionId, userId }) {
+    const dispatch = useDispatch()
+    const { closeModal } = useModal()
     const [name, setName] = useState("")
     const [privacy, setPrivacy] = useState(null)
     const [desc, setDesc] = useState("")
     const [errors, setErrors] = useState({})
 
-    if (!user) {
-        history.push("/login")
-    }
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleEdit = async (event) => {
+        event.preventDefault();
         setErrors({});
         let payloadPrivacy;
 
-        if (privacy === "true") {
-            payloadPrivacy = true
-        } else {
-            payloadPrivacy = false
-        }
+        payloadPrivacy = privacy === "true";
 
         const payload = {
-            user_id: user.id,
+            user_id: userId,
             name: name,
             desc: desc,
             // need payloadPrivacy to convert string to bool
             public: payloadPrivacy
         };
 
-        console.log(payload)
+        const res = await dispatch(updateCollectionThunk(collectionId, payload))
 
-        const res = await dispatch(createCollectionThunk(payload));
-        // res is recipe obj on success and object w key errors on failure
-        console.log(res)
+        console.log("hi", res)
+
         if (res.errors) {
             // res.errors is object with keys of fieldnames and values of arrays, each index being an error string
             setErrors(res.errors);
             console.log(errors.name)
         } else {
-            history.push('/mycollections')
+            closeModal()
         };
-    };
+    }
+
+    // const handleClick = () => {
+    //     closeModal();
+    // }
 
     return (
         <div className="create-recipe">
-            <form className="recipe-form" onSubmit={handleSubmit}>
-                <h1>Create a New Collection</h1>
+            <form className="recipe-form" onSubmit={handleEdit}>
+                <h1>Edit Collection</h1>
 
                 <label>
                     Collection Name
@@ -95,10 +90,10 @@ function CreateCollectionPage() {
                 <button
                     type="submit"
                     disabled={!name || !(privacy !== "") || !desc}
-                >Create Collection</button>
+                >Edit Collection</button>
             </form>
         </div>
-    );
-};
+    )
+}
 
-export default CreateCollectionPage;
+export default EditCollectionModal;

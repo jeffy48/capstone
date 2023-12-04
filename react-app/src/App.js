@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-import SignupFormPage from "./components/SignupFormPage";
-import LoginFormPage from "./components/LoginFormPage";
+import SignupFormPage from "./components/Auth/SignupFormPage";
+import LoginFormPage from "./components/Auth/LoginFormPage";
 import { authenticate } from "./store/session";
-import Navigation from "./components/Navigation";
-import AllRecipesPage from "./components/Recipes/AllRecipesPage";
-import UserRecipesPage from "./components/MyRecipesPage";
-import RecipePage from "./components/RecipePage";
-import CreateRecipePage from "./components/CreateRecipePage";
-import HomePage from "./components/HomePage";
-import MyReviewsPage from "./components/MyReviewsPage";
-import AllCollectionsPage from "./components/AllCollectionsPage";
-import MyCollectionsPage from "./components/MyCollectionsPage";
-import CreateCollectionPage from "./components/CreateCollectionPage";
-import CollectionPage from "./components/CollectionPage";
+import Navigation from "./components/Navigation/Navigation";
+import AllRecipesPage from "./components/Recipes/AllRecipiesPage";
+import UserRecipesPage from "./components/Recipes/MyRecipePage";
+import RecipePage from "./components/Recipes/RecipePage";
+import CreateRecipePage from "./components/Recipes/CreateRecipePage";
+import HomePage from "./components/HomePage/HomePage";
+import MyReviewsPage from "./components/Reviews/MyReviewsPage";
+import AllCollectionsPage from "./components/Collections/AllCollectionsPage";
+import MyCollectionsPage from "./components/Collections/MyCollectionsPage";
+import CreateCollectionPage from "./components/Collections/CreateCollectionPage";
+import CollectionPage from "./components/Collections/CollectionPage";
 
 function App() {
   const dispatch = useDispatch();

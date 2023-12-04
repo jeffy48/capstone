@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getAllRecipesThunk } from "../../../store/recipe"
+import { getAllRecipesThunk } from "../../store/recipe"
 import './AllRecipesPage.css'
-import defaultImage from "../../../images/default.jpg"
+import defaultImage from "../../images/default.jpg"
 
 function AllRecipesPage() {
     const dispatch = useDispatch()
