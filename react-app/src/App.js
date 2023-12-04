@@ -5,7 +5,7 @@ import SignupFormPage from "./components/Auth/SignupFormPage";
 import LoginFormPage from "./components/Auth/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation/Navigation";
-import AllRecipesPage from "./components/Recipes/AllRecipiesPage";
+import AllRecipesPage from "./components/Recipes/AllRecipesPage";
 import UserRecipesPage from "./components/Recipes/MyRecipePage";
 import RecipePage from "./components/Recipes/RecipePage";
 import CreateRecipePage from "./components/Recipes/CreateRecipePage";

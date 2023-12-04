@@ -7,6 +7,7 @@ import './CollectionPage.css'
 import defaultImage from "../../images/default.jpg"
 import EditCollectionModal from "../Modals/EditCollectionModal";
 import OpenModalButton from "../Modals/OpenModalButton";
+import DeleteCollectionRecipeModal from "../Modals/DeleteCollectionRecipeModal";
 
 function CollectionPage() {
     const dispatch = useDispatch()
@@ -20,6 +21,12 @@ function CollectionPage() {
         dispatch(getCollectionThunk(collectionId))
         dispatch(getCollectionRecipesThunk(collectionId))
     }, [dispatch, collectionId])
+
+    if (collectionRecipes.length > 0 && !collection.public && collection.user_id !== userId) {
+        return (
+            <h1 style={{color:"red"}}>403 Unauthorized: Not owner of private collection</h1>
+        )
+    }
 
     const getDefaultImage = (img) => {
         img.target.src = defaultImage;
@@ -41,31 +48,33 @@ function CollectionPage() {
             <h1 style={{ marginTop:25, fontSize: 24, marginBottom:0, textDecoration: "underline" }}>Recipes in this Collection:</h1>
             <div className="recipe-wrapper">
                 {collectionRecipes.length > 0 ? collectionRecipes.map(recipe => (
-                    <NavLink
-                        key={recipe.id}
-                        to={`/recipes/${recipe.id}`}>
-                        <div className="recipe-card">
-                            <img
-                                onError={getDefaultImage}
-                                className="recipe-img"
-                                src={recipe.recipe_image}
-                                alt='recipe-thumbnail-image'
-                                title={recipe.recipe_name}/>
-                            <h1>{recipe.recipe_name}</h1>
-                            <p>Serves {recipe.recipe_servings}</p>
-                            <p>Takes {recipe.recipe_preptime + recipe.recipe_cooktime} minutes</p>
-                            <p>Difficulty: {recipe.recipe_difficulty}</p>
-                            {/* {userId === recipe.collection_user_id && (
-                                <OpenModalButton
-                                buttonText="Delete"
-                                modalComponent={<DeleteCollectionRecipeModal collectionRecipeId={recipe.id} />}
-                            />
-                            )} */}
-
-                        </div>
-                    </NavLink>
+                    <div className="recipe-card">
+                        <NavLink
+                            key={recipe.id}
+                            to={`/recipes/${recipe.id}`}
+                            >
+                            <div>
+                                <img
+                                    onError={getDefaultImage}
+                                    className="recipe-img"
+                                    src={recipe.recipe_image}
+                                    alt='recipe-thumbnail-image'
+                                    title={recipe.recipe_name}/>
+                                <h1>{recipe.recipe_name}</h1>
+                                <p>Serves {recipe.recipe_servings}</p>
+                                <p>Takes {recipe.recipe_preptime + recipe.recipe_cooktime} minutes</p>
+                                <p>Difficulty: {recipe.recipe_difficulty}</p>
+                            </div>
+                        </NavLink>
+                        {userId === recipe.collection_user_id && (
+                            <OpenModalButton
+                            buttonText="Remove"
+                            modalComponent={<DeleteCollectionRecipeModal collectionRecipeId={recipe.id} />}
+                        />
+                        )}
+                    </div>
                 ))
-                : <h1>No recipes in this collection</h1>}
+                : <h1 style={{textAlign:"center", gridColumnStart:2}}>No recipes in this collection</h1>}
             </div>
         </div>
     )

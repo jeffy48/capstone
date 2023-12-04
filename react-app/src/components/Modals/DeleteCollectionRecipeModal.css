@@ -1,0 +1,30 @@
+#modal-content div {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 25px;
+    row-gap: 25px;
+}
+
+#modal-content > div > h1 {
+    margin:0;
+}
+
+#modal-content > div > div > button {
+    align-self: center;
+    width: 15%;
+    height: 30px;
+    background-color: rgb(18, 235, 109);
+    border-radius: 5px;
+}
+
+#modal-content > div > div {
+    flex-direction: row;
+    column-gap: 15px;
+}
+
+#modal-content {
+    border-radius: 5px;
+}

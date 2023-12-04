@@ -44,7 +44,7 @@ export const createCollectionRecipeThunk = (payload) => async dispatch => {
 };
 
 export const deleteCollectionRecipeThunk = (collectionRecipeId) => async dispatch => {
-	const res = await fetch(`/api/collection-recipes/:collectionRecipeId`, {
+	const res = await fetch(`/api/collection-recipes/${collectionRecipeId}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" }
 	});

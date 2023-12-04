@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { getRecipeThunk } from "../../store/recipe";
 import { getRecipeIngredientsThunk } from "../../store/recipeIngredient";
 import { getRecipeInstructionsThunk } from "../../store/recipeInstruction";
@@ -8,6 +8,7 @@ import { getRecipeReviewsThunk } from "../../store/review";
 
 function RecipePage() {
     const dispatch = useDispatch()
+    const history = useHistory();
     const { recipeId } = useParams();
     const user = useSelector(state => state.session.user);
     const userId = user ? user.id : null;
@@ -15,7 +16,6 @@ function RecipePage() {
     const ingredients = useSelector(state => state.recipeIngredient.recipeIngredients)
     const instructions = useSelector(state => state.recipeInstruction.recipeInstructions)
     const reviews = useSelector(state => state.review.recipeReviews)
-    console.log(recipe)
 
     useEffect(() => {
         dispatch(getRecipeThunk(recipeId));
@@ -23,6 +23,12 @@ function RecipePage() {
         dispatch(getRecipeInstructionsThunk(recipeId))
         dispatch(getRecipeReviewsThunk(recipeId))
     }, [dispatch])
+
+    if (instructions.length > 0 && !recipe.public && recipe.user_id !== userId) {
+        return (
+            <h1 style={{color:"red"}}>403 Unauthorized: Not owner of private recipe</h1>
+        )
+    }
 
     return (
         <div className="recipe-page">

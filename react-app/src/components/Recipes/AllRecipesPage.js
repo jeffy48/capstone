@@ -20,7 +20,7 @@ function AllRecipesPage() {
 
     return (
         <div id="all-recipes-page">
-            <h1>Explore All Recipes</h1>
+            <h1>Explore Recipes (Public)</h1>
             {user && (
             <NavLink exact to='/myrecipes'>My Recipes</NavLink>
             )}

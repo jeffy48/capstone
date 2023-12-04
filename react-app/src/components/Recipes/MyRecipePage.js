@@ -27,7 +27,7 @@ function MyRecipesPage() {
     return (
         <div id="all-recipes-page">
             <h1>Your Recipes</h1>
-            <NavLink exact to="/recipes" style={{marginBottom:5}}>All Recipes</NavLink>
+            <NavLink exact to="/recipes" style={{marginBottom:5}}>Recipes</NavLink>
             <NavLink exact to="/recipes/create">Create a Recipe</NavLink>
             <div className="recipe-wrapper">
                 {userRecipes.length > 0 ? userRecipes.map(recipe => (
