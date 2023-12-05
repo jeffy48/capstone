@@ -15,7 +15,6 @@ def get_recipe_reviews(recipe_id):
     # reviews = Review.query.filter_by(recipe_id=recipe_id).all()
     # return jsonify([review.to_dict() for review in reviews])
     reviews = db.session.query(Review, User).join(User, Review.user_id == User.id).filter(Review.recipe_id == recipe_id).all()
-    print(reviews[0])
     res = []
     for i in range(len(reviews)):
         reviewObj = {}

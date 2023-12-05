@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from sqlalchemy.schema import UniqueConstraint
 
 class RecipeInstruction(db.Model):
   __tablename__ = 'recipe_instructions'
@@ -10,6 +11,8 @@ class RecipeInstruction(db.Model):
   recipe_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("recipes.id")), nullable=False)
   desc = db.Column(db.String, nullable=False)
   instruction_num = db.Column(db.Integer, nullable=False)
+
+  __table_args__ = (UniqueConstraint('recipe_id', 'instruction_num', name='uq_recipe_instruction'),)
 
   recipe = db.relationship('Recipe', back_populates='recipe_instructions')
 

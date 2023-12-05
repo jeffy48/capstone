@@ -96,6 +96,7 @@ export const updateRecipeThunk = (recipeId, payload) => async dispatch => {
     try {
         const recipe = await res.json()
         dispatch(updateRecipe(recipe))
+        return recipe
     }
     catch(error) {
         return error

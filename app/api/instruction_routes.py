@@ -14,9 +14,9 @@ def get_recipe_instructions(recipe_id):
     instructions = RecipeInstruction.query.filter_by(recipe_id=recipe_id).all()
     return jsonify([instruction.to_dict() for instruction in instructions])
 
-@instruction_routes.route('/instructions', methods=['POST'])
+@instruction_routes.route('/', methods=['POST'])
 @login_required
-def create_recipe_instruction(recipe_id):
+def create_recipe_instruction():
     """
     A logged in user can create a new recipe instruction for a recipe they own
     """

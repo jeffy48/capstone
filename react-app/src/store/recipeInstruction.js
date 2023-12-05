@@ -35,7 +35,7 @@ export const getRecipeInstructionsThunk = (recipeId) => async dispatch => {
 };
 
 export const createRecipeInstructionThunk = (payload) => async dispatch => {
-	const res = await fetch('/api/instructions', {
+	const res = await fetch('/api/instructions/', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -43,6 +43,7 @@ export const createRecipeInstructionThunk = (payload) => async dispatch => {
 	try {
         const instruction = await res.json()
         dispatch(createRecipeInstruction(instruction))
+		return instruction
     }
     catch(error) {
         return error
@@ -85,7 +86,7 @@ export default function reducer(state = initialState, action) {
         case GET_RECIPE_INSTRUCTIONS:
             return {...state, recipeInstructions: action.payload}
 		case CREATE_RECIPE_INSTRUCTION:
-			return {...state, createdInstruction: action.payload}
+			return {...state, recipeInstructions: [...state.recipeInstructions, action.payload], createdInstruction: action.payload}
 		case UPDATE_RECIPE_INSTRUCTION:
 			return {...state, updatedInstruction: action.payload}
 		case DELETE_RECIPE_INSTRUCTION:

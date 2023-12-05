@@ -45,6 +45,7 @@
     font-size: 18px;
     margin-left: 3%;
     margin-right: 3%;
+    word-break: break-all;
 }
 
 .recipe-card p {
@@ -60,4 +61,5 @@
 
 #all-recipes-page > h1 {
     text-align: center;
+    cursor: pointer;
 }

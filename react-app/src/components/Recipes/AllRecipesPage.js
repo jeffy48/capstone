@@ -28,19 +28,18 @@ function AllRecipesPage() {
                 {allRecipes.map(recipe => (
                     <NavLink
                         key={recipe.id}
+                        className="recipe-card"
                         to={`/recipes/${recipe.id}`}>
-                        <div className="recipe-card">
-                            <img
-                                onError={getDefaultImage}
-                                className="recipe-img"
-                                src={recipe.image}
-                                alt='recipe-thumbnail-image'
-                                title={recipe.name}/>
-                            <h1>{recipe.name}</h1>
-                            <p>Serves {recipe.servings}</p>
-                            <p>Takes {recipe.preptime + recipe.cooktime} minutes</p>
-                            <p>Difficulty: {recipe.difficulty}</p>
-                        </div>
+                        <img
+                            onError={getDefaultImage}
+                            className="recipe-img"
+                            src={recipe.image}
+                            alt='recipe-thumbnail-image'
+                            title={recipe.name}/>
+                        <h1>{recipe.name}</h1>
+                        <p>Serves {recipe.servings}</p>
+                        <p>Takes {recipe.preptime + recipe.cooktime} minutes</p>
+                        <p>Difficulty: {recipe.difficulty}</p>
                     </NavLink>
                 ))}
             </div>

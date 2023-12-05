@@ -15,6 +15,7 @@ import AllCollectionsPage from "./components/Collections/AllCollectionsPage";
 import MyCollectionsPage from "./components/Collections/MyCollectionsPage";
 import CreateCollectionPage from "./components/Collections/CreateCollectionPage";
 import CollectionPage from "./components/Collections/CollectionPage";
+import EditRecipePage from "./components/Recipes/EditRecipePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -45,6 +46,9 @@ function App() {
           </Route>
           <Route path="/recipes/create" >
             <CreateRecipePage />
+          </Route>
+          <Route path="/recipes/:recipeId/edit" >
+            <EditRecipePage />
           </Route>
           <Route path="/collections/create" >
             <CreateCollectionPage />

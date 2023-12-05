@@ -18,9 +18,9 @@ const updateRecipeIngredient = (ingredient) => ({
 	payload: ingredient
 });
 
-const deleteRecipeIngredient = (ingredient) => ({
+const deleteRecipeIngredient = (ingredientId) => ({
 	type: DELETE_RECIPE_INGREDIENT,
-	payload: ingredient
+	payload: ingredientId
 })
 
 export const getRecipeIngredientsThunk = (recipeId) => async dispatch => {
@@ -35,7 +35,7 @@ export const getRecipeIngredientsThunk = (recipeId) => async dispatch => {
 };
 
 export const createRecipeIngredientThunk = (payload) => async dispatch => {
-	const res = await fetch('/api/ingredients', {
+	const res = await fetch('/api/ingredients/', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -43,6 +43,7 @@ export const createRecipeIngredientThunk = (payload) => async dispatch => {
 	try {
         const ingredient = await res.json()
         dispatch(createRecipeIngredient(ingredient))
+		return ingredient
     }
     catch(error) {
         return error
@@ -71,7 +72,7 @@ export const deletedRecipeIngredientThunk = (id) => async dispatch => {
 	});
 	try {
         const ingredient = await res.json()
-        dispatch(deleteRecipeIngredient(ingredient))
+        dispatch(deleteRecipeIngredient(ingredient.id))
     }
     catch(error) {
         return error
@@ -85,11 +86,12 @@ export default function reducer(state = initialState, action) {
         case GET_RECIPE_INGREDIENTS:
             return {...state, recipeIngredients: action.payload}
 		case CREATE_RECIPE_INGREDIENT:
-			return {...state, createdIngredient: action.payload}
+			return {...state, createdIngredient: action.payload, recipeIngredients: [...state.recipeIngredients, action.payload]}
 		case UPDATE_RECIPE_INGREDIENT:
 			return {...state, updatedIngredient: action.payload}
 		case DELETE_RECIPE_INGREDIENT:
-			return {...state, deletedIngredient: action.payload}
+			const updatedIngredients = state.recipeIngredients.filter(ingredient => ingredient.id !== action.payload)
+			return {...state, recipeIngredients: updatedIngredients, deletedIngredient: action.payload}
 		default:
 			return state;
 	}
