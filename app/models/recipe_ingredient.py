@@ -25,3 +25,13 @@ class RecipeIngredient(db.Model):
       'measurement': self.measurement,
       'desc': self.desc
     }
+
+  def to_dict_grocery(self):
+    return {
+      'ingredient_id': self.id,
+      'ingredient_recipe_id': self.recipe_id,
+      'ingredient_name': self.name,
+      'ingredient_quantity': self.quantity,
+      'ingredient_measurement': self.measurement,
+      'ingredient_desc': self.desc
+    }

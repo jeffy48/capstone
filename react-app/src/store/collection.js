@@ -4,6 +4,7 @@ const UPDATE_COLLECTION = "collection/UPDATE_COLLECTION";
 const DELETE_COLLECTION = "collection/DELETE_COLLECTION";
 const GET_ALL_COLLECTIONS = "collection/GET_ALL_COLLECTIONS";
 const GET_COLLECTION = 'collection/GET_COLLECTION'
+const GET_USER_COLLECTION_RECIPES = 'collection/GET_USER_COLLECTION_RECIPES'
 
 const getUserCollections = (collections) => ({
     type: GET_USER_COLLECTIONS,
@@ -20,9 +21,9 @@ const updateCollection = (collection) => ({
     payload: collection
 });
 
-const deleteCollection = (collection) => ({
+const deleteCollection = (collectionId) => ({
     type: DELETE_COLLECTION,
-    payload: collection
+    payload: collectionId
 })
 
 const getAllCollections = (collections) => ({
@@ -35,12 +36,28 @@ const getCollection = (collection) => ({
     payload: collection
 })
 
+const getUserCollectionRecipes = (collections) => ({
+    type: GET_USER_COLLECTION_RECIPES,
+    payload: collections
+})
+
 // might have to rethink and change params
 export const getUserCollectionsThunk = (userId) => async dispatch => {
     const res = await fetch(`/api/users/${userId}/collections`);
     try {
         const collections = await res.json()
         dispatch(getUserCollections(collections))
+    }
+    catch(error) {
+        return error
+    }
+};
+
+export const getUserCollectionRecipesThunk = (userId) => async dispatch => {
+    const res = await fetch(`/api/users/${userId}/collectionrecipes`);
+    try {
+        const collections = await res.json()
+        dispatch(getUserCollectionRecipes(collections))
     }
     catch(error) {
         return error
@@ -86,7 +103,7 @@ export const deleteCollectionThunk = (collectionId) => async dispatch => {
     });
     try {
         const collection = await res.json()
-        dispatch(deleteCollection(collection))
+        dispatch(deleteCollection(collection.id))
     }
     catch(error) {
         return error
@@ -115,12 +132,14 @@ export const getCollectionThunk = (collectionId) => async dispatch => {
     }
 }
 
-const initialState = { collection: {}, collections: [], userCollections: [], collection: {}, createdCollection: {}, updatedCollection: {}, deletedCollection: {} };
+const initialState = { collection: {}, collections: [], userCollections: [], collection: {}, createdCollection: {}, updatedCollection: {}, deletedCollection: {}, userCollectionRecipes: [] };
 
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
         case GET_USER_COLLECTIONS:
             return {...state, userCollections: action.payload}
+        case GET_USER_COLLECTION_RECIPES:
+            return {...state, userCollectionRecipes: action.payload}
         case GET_COLLECTION:
             return {...state, collection: action.payload}
         case GET_ALL_COLLECTIONS:
@@ -130,7 +149,8 @@ export default function reducer(state = initialState, action) {
         case UPDATE_COLLECTION:
             return {...state, collection: action.payload, updatedCollection: action.payload}
         case DELETE_COLLECTION:
-            return {...state, deletedCollection: action.payload}
+            const updatedCollections = state.userCollections.filter(collection => collection.id !== action.payload)
+            return {...state, userCollections: updatedCollections, deletedCollection: action.payload}
 		default:
 			return state;
 	}

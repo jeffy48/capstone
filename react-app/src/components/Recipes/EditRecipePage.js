@@ -12,6 +12,9 @@ import EditRecipeModal from "../Modals/EditRecipeModal";
 import AddIngredientModal from "../Modals/CreateIngredientModal";
 import DeleteIngredientModal from "../Modals/DeleteIngredientModal";
 import AddInstructionModal from "../Modals/CreateInstructionModal";
+import DeleteInstructionModal from "../Modals/DeleteInstructionModal";
+import "./EditRecipePage.css"
+import DeleteRecipeModal from "../Modals/DeleteRecipeModal";
 
 function EditRecipePage() {
     const dispatch = useDispatch()
@@ -92,17 +95,21 @@ function EditRecipePage() {
                     modalComponent={<AddInstructionModal recipeId={recipe.id} />}
                     />
                     {/* map through recipe intructions */}
-                    {/* might have to refactor this to check instruction num. rn, it is just assuming instructions from db are in order */}
                     {sortedInstructions.map(instruction => (
-                        <div>
+                        <div style={{display: "flex", columnGap:15}}>
                             <p>{instruction.instruction_num}. {instruction.desc}</p>
-                            {/* <OpenModalButton
+                            <OpenModalButton
                                 buttonText="-"
-                                modalComponent={<Modal />}
-                            /> */}
+                                modalComponent={<DeleteInstructionModal instructionId={instruction.id} />}
+                            />
                         </div>
                     ))}
                 </div>
+                <OpenModalButton
+                    className="delete-recipe"
+                    buttonText="Delete Recipe"
+                    modalComponent={<DeleteRecipeModal recipeId={recipe.id}/>}
+                    />
                 <div className="recipe-page-reviews">
                     <h1>Reviews</h1>
                     {/* map through recipe reviews */}

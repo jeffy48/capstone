@@ -8,6 +8,7 @@ import defaultImage from "../../images/default.jpg"
 import EditCollectionModal from "../Modals/EditCollectionModal";
 import OpenModalButton from "../Modals/OpenModalButton";
 import DeleteCollectionRecipeModal from "../Modals/DeleteCollectionRecipeModal";
+import DeleteCollectionModal from "../Modals/DeleteCollectionModal";
 
 function CollectionPage() {
     const dispatch = useDispatch()
@@ -39,10 +40,16 @@ function CollectionPage() {
                 <h2 style={{ marginTop:5, fontSize: 20 }}>Curated By: {collection.username}</h2>
                 <p>{collection.desc}</p>
                 {userId === collection.user_id && (
-                    <OpenModalButton
-                    buttonText="Edit"
-                    modalComponent={<EditCollectionModal collectionId={collection.id} userId={userId} />}
-                    />
+                    <div>
+                        <OpenModalButton
+                        buttonText="Edit"
+                        modalComponent={<EditCollectionModal collectionId={collection.id} userId={userId} />}
+                        />
+                        <OpenModalButton
+                        buttonText="Delete"
+                        modalComponent={<DeleteCollectionModal collectionId={collection.id} />}
+                        />
+                    </div>
                 )}
             </div>
             <h1 style={{ marginTop:25, fontSize: 24, marginBottom:0, textDecoration: "underline" }}>Recipes in this Collection:</h1>

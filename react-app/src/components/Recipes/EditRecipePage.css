@@ -1,0 +1,9 @@
+.recipe-page-container > button {
+    align-self: center;
+    width: 150px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: rgb(18, 235, 109);
+    border-radius: 5px;
+    cursor: pointer;
+}

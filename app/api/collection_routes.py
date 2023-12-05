@@ -36,8 +36,33 @@ def get_user_collections(user_id):
     """
     Query for a user's collections by user_id and returns them in a list of collection dictionaries
     """
+    # collections = db.session.query(Collection, CollectionRecipe).join(CollectionRecipe, Collection.id == CollectionRecipe.collection_id).filter(Collection.user_id == user_id).all()
+    # res = []
+    # for i in range(len(collections)):
+    #     collectionsObj = {}
+    #     collectionsObj.update(collections[i][0].to_dict())
+    #     collectionsObj.update(collections[i][1].to_dict_collection())
+    #     res.append(collectionsObj)
+    # return res
     collections = Collection.query.filter_by(user_id=user_id).all()
     return jsonify([collection.to_dict() for collection in collections])
+
+@user_routes.route('/<int:user_id>/collectionrecipes')
+@login_required
+def get_user_collection_recipes(user_id):
+    """
+    Query for a user's collections by user_id and returns them in a list of collection dictionaries
+    """
+    collections = db.session.query(Collection, CollectionRecipe).join(CollectionRecipe, Collection.id == CollectionRecipe.collection_id).filter(Collection.user_id == user_id).all()
+    res = []
+    for i in range(len(collections)):
+        collectionsObj = {}
+        collectionsObj.update(collections[i][0].to_dict())
+        collectionsObj.update(collections[i][1].to_dict_collection())
+        res.append(collectionsObj)
+    return res
+    # collections = Collection.query.filter_by(user_id=user_id).all()
+    # return jsonify([collection.to_dict() for collection in collections])
 
 @collection_routes.route('/', methods=['POST'])
 @login_required

@@ -22,3 +22,8 @@ class UserGroceryListIngredient(db.Model):
       'recipe_ingredient_id': self.recipe_ingredient_id,
       'checked': self.checked
     }
+
+  def to_dict_checked(self):
+    return {
+      'checked': self.checked
+    }

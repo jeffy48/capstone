@@ -130,7 +130,7 @@ export default function reducer(state = initialState, action) {
         case CREATE_RECIPE:
             return {...state, createdRecipe: action.payload}
         case UPDATE_RECIPE:
-            return {...state, updatedRecipe: action.payload}
+            return {...state, recipe: action.payload, updatedRecipe: action.payload}
         case DELETE_RECIPE:
             return {...state, deletedRecipe: action.payload}
 		default:

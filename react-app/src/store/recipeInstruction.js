@@ -18,9 +18,9 @@ const updateRecipeInstruction = (instruction) => ({
 	payload: instruction
 });
 
-const deleteRecipeInstruction = (instruction) => ({
+const deleteRecipeInstruction = (instructionId) => ({
 	type: DELETE_RECIPE_INSTRUCTION,
-	payload: instruction
+	payload: instructionId
 })
 
 export const getRecipeInstructionsThunk = (recipeId) => async dispatch => {
@@ -72,7 +72,7 @@ export const deletedRecipeInstructionThunk = (id) => async dispatch => {
 	});
 	try {
         const instruction = await res.json()
-        dispatch(deleteRecipeInstruction(instruction))
+        dispatch(deleteRecipeInstruction(instruction.id))
     }
     catch(error) {
         return error
@@ -90,7 +90,8 @@ export default function reducer(state = initialState, action) {
 		case UPDATE_RECIPE_INSTRUCTION:
 			return {...state, updatedInstruction: action.payload}
 		case DELETE_RECIPE_INSTRUCTION:
-			return {...state, deletedInstruction: action.payload}
+			const updatedInstructions = state.recipeInstructions.filter(instruction => instruction.id !== action.payload)
+			return {...state, recipeInstructions: updatedInstructions, deletedInstruction: action.payload}
 		default:
 			return state;
 	}

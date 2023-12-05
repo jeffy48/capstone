@@ -19,3 +19,9 @@ class CollectionRecipe(db.Model):
       'collection_id': self.collection_id,
       'recipe_id': self.recipe_id
     }
+
+  def to_dict_collection(self):
+    return {
+      'collection_recipe_id': self.id,
+      'recipe_id': self.recipe_id
+    }

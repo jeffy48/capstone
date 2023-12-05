@@ -7,6 +7,8 @@ import { getRecipeInstructionsThunk } from "../../store/recipeInstruction";
 import { getRecipeReviewsThunk } from "../../store/review";
 import "./RecipePage.css"
 import defaultImage from "../../images/default.jpg"
+import OpenModalButton from "../Modals/OpenModalButton";
+import AddRecipeToCollectionModal from "../Modals/AddRecipeToCollectionModal";
 
 function RecipePage() {
     const dispatch = useDispatch()
@@ -73,6 +75,12 @@ function RecipePage() {
                         <p>{instruction.instruction_num}. {instruction.desc}</p>
                     ))}
                 </div>
+                {/* {user && (
+                    <OpenModalButton
+                    buttonText="Add Recipe to a Collection"
+                    modalComponent={<AddRecipeToCollectionModal recipeId={recipe.id} userId={userId}/>}
+                    />
+                )} */}
                 <div className="recipe-page-reviews">
                     <h1>Reviews</h1>
                     {/* map through recipe reviews */}
