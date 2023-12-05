@@ -23,6 +23,15 @@ function LoginFormPage() {
     }
   };
 
+  const handleDemo = async (e) => {
+    e.preventDefault();
+    const data = await dispatch(login('demo@aa.io', "password"));
+    history.push("/recipes")
+    if (data) {
+      setErrors(data);
+    }
+  }
+
   return (
     <div className="login-page">
       <div className="login-card">
@@ -53,6 +62,7 @@ function LoginFormPage() {
           </label>
           <button type="submit">Log In</button>
         </form>
+        <button onClick={handleDemo}>Demo Login</button>
         <NavLink exact to="/signup">New User? Sign Up Instead!</NavLink>
       </div>
     </div>
