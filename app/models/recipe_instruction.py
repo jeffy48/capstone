@@ -12,7 +12,7 @@ class RecipeInstruction(db.Model):
   desc = db.Column(db.String, nullable=False)
   instruction_num = db.Column(db.Integer, nullable=False)
 
-  __table_args__ = (UniqueConstraint('recipe_id', 'instruction_num', name='uq_recipe_instruction'),)
+  __table_args__ = (UniqueConstraint('recipe_id', 'instruction_num', name='uq_recipe_instructions'),)
 
   recipe = db.relationship('Recipe', back_populates='recipe_instructions')
 

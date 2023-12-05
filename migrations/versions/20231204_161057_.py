@@ -98,7 +98,7 @@ def upgrade():
     sa.Column('instruction_num', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['recipe_id'], ['recipes.id'], ),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('recipe_id', 'instruction_num', name='uq_recipe_instruction')
+    sa.UniqueConstraint('recipe_id', 'instruction_num', name='uq_recipe_instructions')
     )
 
     if environment == "production":
