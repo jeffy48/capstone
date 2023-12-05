@@ -15,6 +15,7 @@ import AddInstructionModal from "../Modals/CreateInstructionModal";
 import DeleteInstructionModal from "../Modals/DeleteInstructionModal";
 import "./EditRecipePage.css"
 import DeleteRecipeModal from "../Modals/DeleteRecipeModal";
+import EditIngredientModal from "../Modals/EditIngredientModal";
 
 function EditRecipePage() {
     const dispatch = useDispatch()
@@ -44,10 +45,6 @@ function EditRecipePage() {
     const getDefaultImage = (img) => {
         img.target.src = defaultImage;
     };
-
-    const handleEdit = () => {
-
-    }
 
     const sortedInstructions = instructions.sort((a, b) => a.instruction_num > b.instruction_num ? 1 : -1)
 
@@ -84,6 +81,10 @@ function EditRecipePage() {
                             <OpenModalButton
                                 buttonText="-"
                                 modalComponent={<DeleteIngredientModal ingredientId={ingredient.id}/>}
+                            />
+                            <OpenModalButton
+                                buttonText="Edit"
+                                modalComponent={<EditIngredientModal ingredientId={ingredient.id} recipeId={recipeId} />}
                             />
                         </div>
                     ))}

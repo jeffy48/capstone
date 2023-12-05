@@ -59,6 +59,7 @@ export const updateRecipeIngredientThunk = (payload, id) => async dispatch => {
 	try {
         const ingredient = await res.json()
         dispatch(updateRecipeIngredient(ingredient))
+		return ingredient
     }
     catch(error) {
         return error
@@ -88,7 +89,16 @@ export default function reducer(state = initialState, action) {
 		case CREATE_RECIPE_INGREDIENT:
 			return {...state, createdIngredient: action.payload, recipeIngredients: [...state.recipeIngredients, action.payload]}
 		case UPDATE_RECIPE_INGREDIENT:
-			return {...state, updatedIngredient: action.payload}
+			const updatedRecipeIngredients = state.recipeIngredients.map(ingredient => {
+				// Check if the current ingredient has the same id as the updated ingredient
+				if (ingredient.id === action.payload.id) {
+					// If yes, replace it with the updated ingredient
+					return action.payload;
+				}
+				// If not, keep the current ingredient unchanged
+				return ingredient;
+			});
+			return {...state, recipeIngredients: updatedRecipeIngredients, updatedIngredient: action.payload}
 		case DELETE_RECIPE_INGREDIENT:
 			const updatedIngredients = state.recipeIngredients.filter(ingredient => ingredient.id !== action.payload)
 			return {...state, recipeIngredients: updatedIngredients, deletedIngredient: action.payload}
