@@ -6,8 +6,8 @@ class RecipeInstruction(db.Model):
 
   if environment == "production":
     __table_args__ = (
-      {'schema': SCHEMA},
       UniqueConstraint('recipe_id', 'instruction_num', name='uq_recipe_instructions'),
+      {'schema': SCHEMA},
     )
   else:
     __table_args__ = (
