@@ -23,10 +23,13 @@ function EditIngredientModal({ ingredientId, recipeId }) {
         const payload = {
             recipe_id: recipeId,
             name: name,
-            quantity: quantity,
             measurement: measurement,
             desc: desc
         };
+
+        if (quantity !== "") {
+            payload.quantity = quantity;
+        }
 
         const res = await dispatch(updateRecipeIngredientThunk(payload, ingredientId))
 
@@ -47,7 +50,7 @@ function EditIngredientModal({ ingredientId, recipeId }) {
                 <h1>Edit Ingredient</h1>
 
                 <label>
-                    Ingredient Name
+                    Ingredient Name*
                     {errors.name && (
                     <p className="create-recipe-error" style={{color:"red"}}>{errors.name}</p>
                     )}
@@ -73,7 +76,7 @@ function EditIngredientModal({ ingredientId, recipeId }) {
                 </label>
 
                 <label>
-                    Unit of Measurement
+                    Unit of Measurement*
                     {errors.measurement && (
                     <p className="create-recipe-error" style={{color:"red"}}>{errors.measurement}</p>
                     )}
@@ -100,8 +103,9 @@ function EditIngredientModal({ ingredientId, recipeId }) {
 
                 <button
                     type="submit"
-                    disabled={!name || !measurement || !quantity}
+                    disabled={!name || !measurement}
                 >Edit Ingredient</button>
+                <p style={{margin:0, fontSize:12}}>* (required)</p>
             </form>
         </div>
     )

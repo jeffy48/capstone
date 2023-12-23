@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, NavLink, Redirect } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import './LoginForm.css';
 
 function LoginFormPage() {
   const dispatch = useDispatch();
-  const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +16,7 @@ function LoginFormPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
-    history.push("/recipes")
+
     if (data) {
       setErrors(data);
     }
@@ -25,11 +24,7 @@ function LoginFormPage() {
 
   const handleDemo = async (e) => {
     e.preventDefault();
-    const data = await dispatch(login('demo@aa.io', "password"));
-    history.push("/recipes")
-    if (data) {
-      setErrors(data);
-    }
+    dispatch(login('demo@aa.io', "password"));
   }
 
   return (
@@ -60,9 +55,9 @@ function LoginFormPage() {
               required
             />
           </label>
-          <button type="submit">Log In</button>
+          <button className="login-buttons" type="submit">Log In</button>
         </form>
-        <button onClick={handleDemo}>Demo Login</button>
+        <button style={{marginTop:15}} className="login-buttons" onClick={handleDemo}>Demo Login</button>
         <NavLink exact to="/signup">New User? Sign Up Instead!</NavLink>
       </div>
     </div>

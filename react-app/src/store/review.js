@@ -53,7 +53,7 @@ export const getUserReviewsThunk = (userId) => async dispatch => {
 };
 
 export const createReviewThunk = (payload) => async dispatch => {
-    const res = await fetch('/api/reviews', {
+    const res = await fetch('/api/reviews/', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -61,6 +61,7 @@ export const createReviewThunk = (payload) => async dispatch => {
     try {
         const review = await res.json()
         dispatch(createReview(review))
+        return review
     }
     catch(error) {
         return error
@@ -68,7 +69,7 @@ export const createReviewThunk = (payload) => async dispatch => {
 };
 
 export const updateReviewThunk = (reviewId, payload) => async dispatch => {
-    const res = await fetch(`/api/recipes/${reviewId}`, {
+    const res = await fetch(`/api/reviews/${reviewId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -76,6 +77,7 @@ export const updateReviewThunk = (reviewId, payload) => async dispatch => {
     try {
         const review = await res.json()
         dispatch(updateReview(review))
+        return review
     }
     catch(error) {
         return error
@@ -105,12 +107,19 @@ export default function reducer(state = initialState, action) {
         case GET_USER_REVIEWS:
             return {...state, userReviews: action.payload}
         case CREATE_REVIEW:
-            return {...state, createdReview: action.payload}
+            return {...state, recipeReviews: [...state.recipeReviews, action.payload], createdReview: action.payload}
         case UPDATE_REVIEW:
-            return {...state, updatedReview: action.payload}
+            const updatedReviews2 = state.recipeReviews.map(review => {
+				if (review.id === action.payload.id) {
+					return action.payload;
+				}
+				return review;
+			});
+            return {...state, recipeReviews: updatedReviews2, updatedReview: action.payload}
         case DELETE_REVIEW:
-            const updatedReviews = state.userReviews.filter(review => review.id !== action.payload)
-            return { ...state, userReviews: updatedReviews, deletedReview: action.payload };
+            const updatedRecipeReviews = state.recipeReviews.filter(review => review.id !== action.payload)
+            const updatedReviews = state.userReviews.filter(review => review.id !== action.payload.id)
+            return { ...state, recipeReviews: updatedRecipeReviews, userReviews: updatedReviews, deletedReview: action.payload };
 		default:
 			return state;
 	}

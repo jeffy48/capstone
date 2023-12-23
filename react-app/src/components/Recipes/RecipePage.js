@@ -9,6 +9,9 @@ import "./RecipePage.css"
 import defaultImage from "../../images/default.jpg"
 import OpenModalButton from "../Modals/OpenModalButton";
 import AddRecipeToCollectionModal from "../Modals/AddRecipeToCollectionModal";
+import DeleteReviewModal from "../Modals/DeleteReviewModal";
+import EditReviewModal from "../Modals/EditReviewModal";
+import CreateReviewModal from "../Modals/CreateReviewModal";
 
 function RecipePage() {
     const dispatch = useDispatch()
@@ -64,7 +67,7 @@ function RecipePage() {
                     <h1>Ingredients:</h1>
                     {/* map through recipe ingredients with 2 columns */}
                     {ingredients.map(ingredient => (
-                        <li>{ingredient.quantity} {ingredient.measurement} {ingredient.name} {ingredient.desc && (`(${ingredient.desc})`)}</li>
+                        <li>{parseFloat(ingredient.quantity).toFixed(2)} {ingredient.measurement} {ingredient.name} {ingredient.desc && (`(${ingredient.desc})`)}</li>
                     ))}
                 </div>
                 <div className="recipe-ingredients">
@@ -83,14 +86,37 @@ function RecipePage() {
                 )} */}
                 <div className="recipe-page-reviews">
                     <h1>Reviews</h1>
+                    {(userId !== recipe.user_id && !(reviews.find(review => review.user_id === userId))) && (
+                        <OpenModalButton
+                        className="edit-recipe-ingr-buttons"
+                        buttonText="Create a Review"
+                        modalComponent={<CreateReviewModal userId={userId} recipeId={recipeId} />}
+                        />
+                    )}
                     {/* map through recipe reviews */}
-                    {reviews.map(review => (
+                    {reviews.length ? (reviews.map(review => (
                         <div className="recipe-page-review">
                             <p>User: {review.username}</p>
                             <p>Stars: {review.rating} / 5</p>
                             <p style={{fontStyle:"italic"}}>"{review.content}"</p>
+                            {userId === review.user_id && (
+                            <div className="edit-recipe-ingr-container">
+                                <OpenModalButton
+                                className="edit-recipe-ingr-buttons"
+                                buttonText="Edit"
+                                modalComponent={<EditReviewModal reviewId={review.id} userId={userId} recipeId={recipeId} />}
+                                />
+                                <OpenModalButton
+                                className="edit-recipe-ingr-buttons"
+                                buttonText="Delete"
+                                modalComponent={<DeleteReviewModal reviewId={review.id} />}
+                                />
+                            </div>) }
+
                         </div>
-                    ))}
+                        ))) : (
+                        <p>No reviews at the moment</p>
+                    )}
                 </div>
             </div>
         </div>

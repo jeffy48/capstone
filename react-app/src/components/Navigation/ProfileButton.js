@@ -50,7 +50,7 @@ function ProfileButton({ user }) {
             <NavLink exact to="/myrecipes">My Recipes</NavLink>
             <NavLink exact to="/mycollections">My Collections</NavLink>
             <NavLink exact to="/myreviews">My Reviews</NavLink>
-            <button onClick={handleLogout}>Log Out</button>
+            <button style={{fontWeight:700}} onClick={handleLogout}>Log Out</button>
           </>
         ) : (
           <>

@@ -59,6 +59,7 @@ export const updateRecipeInstructionThunk = (payload, id) => async dispatch => {
 	try {
         const instruction = await res.json()
         dispatch(updateRecipeInstruction(instruction))
+		return instruction
     }
     catch(error) {
         return error
@@ -88,7 +89,13 @@ export default function reducer(state = initialState, action) {
 		case CREATE_RECIPE_INSTRUCTION:
 			return {...state, recipeInstructions: [...state.recipeInstructions, action.payload], createdInstruction: action.payload}
 		case UPDATE_RECIPE_INSTRUCTION:
-			return {...state, updatedInstruction: action.payload}
+			const updatedRecipeInstructions = state.recipeInstructions.map(instruction => {
+				if (instruction.id === action.payload.id) {
+					return action.payload;
+				}
+				return instruction;
+			});
+			return {...state, recipeInstructions: updatedRecipeInstructions, updatedInstruction: action.payload}
 		case DELETE_RECIPE_INSTRUCTION:
 			const updatedInstructions = state.recipeInstructions.filter(instruction => instruction.id !== action.payload)
 			return {...state, recipeInstructions: updatedInstructions, deletedInstruction: action.payload}

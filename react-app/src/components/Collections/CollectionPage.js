@@ -42,10 +42,12 @@ function CollectionPage() {
                 {userId === collection.user_id && (
                     <div>
                         <OpenModalButton
+                        className="edit-recipe-ingr-buttons"
                         buttonText="Edit"
                         modalComponent={<EditCollectionModal collectionId={collection.id} userId={userId} />}
                         />
                         <OpenModalButton
+                        className="edit-recipe-ingr-buttons"
                         buttonText="Delete"
                         modalComponent={<DeleteCollectionModal collectionId={collection.id} />}
                         />

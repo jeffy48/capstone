@@ -40,11 +40,11 @@ function MyReviewsPage() {
                         <NavLink to={`/recipes/${review.recipe_id}`}>Review for {review.recipe_name}</NavLink>
                         <p>Rating: {review.rating} / 5</p>
                         <p>{`"${review.content}"`}</p>
-                        <button>Edit</button>
+                        {/* <button>Edit</button>
                         <OpenModalButton
                             buttonText="Delete"
                             modalComponent={<DeleteReviewModal reviewId={review.id} />}
-                        />
+                        /> */}
                     </div>
                 ))
                 : <h1 style={{marginTop:25, fontSize: 22}}>You do not have any reviews at the moment.</h1>}

@@ -7,6 +7,7 @@
   padding-left: 0px;
   background-color: rgba(255, 255, 255, 0.7);
   row-gap: 10px;
+  min-width: 109px
 }
 
 .profile-dropdown p {
@@ -24,6 +25,10 @@
   margin: 10px;
 }
 
+.icon:hover {
+  transform: scale(1.2)
+}
+
 .nav {
   display: flex;
   width: 100%;
@@ -35,7 +40,6 @@
 
 .nav-headers {
   padding: 15px;
-  /* width: 100px; */
   align-self: center;
 }
 
@@ -49,4 +53,8 @@
   /* border-color: rgb(18, 235, 109); */
   border-radius: 5px;
   color: rgb(18, 235, 109)
+}
+
+.nav-headers:hover {
+  transform: scale(1.2);
 }

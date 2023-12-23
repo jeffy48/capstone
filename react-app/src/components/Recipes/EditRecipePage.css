@@ -7,3 +7,33 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+.recipe-ingredient-container {
+    font-size: 16pt;
+}
+
+.edit-recipe-ingr-container {
+    align-self: center;
+}
+
+.edit-recipe-ingr-buttons {
+    background-color: white;
+    border:none;
+    font-weight: 900;
+    border-radius: 3px;
+}
+
+.edit-recipe-ingr-buttons:hover {
+    background-color: rgb(18, 235, 109);
+}
+
+.recipe-page-container {
+    width: 1800px;
+    justify-self: center;
+    padding: 15px;
+}
+
+.recipe-page {
+    display: flex;
+    justify-content: center;
+}

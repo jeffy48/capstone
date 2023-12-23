@@ -53,7 +53,7 @@ def update_recipe_ingredient(id):
     if form.validate_on_submit():
         ingredient = RecipeIngredient.query.get(id)
         ingredient.name = form.data['name']
-        ingredient.quantity = form.data['quantity']
+        ingredient.quantity = form.data['quantity'] if form.data['quantity'] is not None else None
         ingredient.measurement = form.data['measurement']
         ingredient.desc = form.data['desc']
         db.session.commit()

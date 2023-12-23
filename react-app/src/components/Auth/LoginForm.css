@@ -40,12 +40,13 @@
     height: 30px;
 }
 
-.login-form > button {
+.login-buttons {
     color: white;
     background-color: rgb(18, 235, 109);
     border: 1px solid black;
     height: 35px;
     width: 125px;
+    align-self: center;
 }
 
 .login-card a {

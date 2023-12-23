@@ -16,6 +16,7 @@ import DeleteInstructionModal from "../Modals/DeleteInstructionModal";
 import "./EditRecipePage.css"
 import DeleteRecipeModal from "../Modals/DeleteRecipeModal";
 import EditIngredientModal from "../Modals/EditIngredientModal";
+import EditInstructionModal from "../Modals/EditInstructionModal";
 
 function EditRecipePage() {
     const dispatch = useDispatch()
@@ -70,58 +71,62 @@ function EditRecipePage() {
                 <img onError={getDefaultImage} src={recipe.image}/>
                 <div className="recipe-instructions">
                     <h1>Ingredients:</h1>
+                    {/* map through recipe ingredients with 2 columns */}
+                    {ingredients.map(ingredient => (
+                        <div style={{display: "flex", columnGap:15, marginBottom:20}}>
+                            <li className="recipe-ingredient-container">{ingredient.quantity ? parseFloat(ingredient.quantity).toFixed(2) : null} {ingredient.measurement} {ingredient.name} {ingredient.desc && (`(${ingredient.desc})`)}</li>
+                            <div className="edit-recipe-ingr-container">
+                                <OpenModalButton
+                                    className="edit-recipe-ingr-buttons"
+                                    buttonText="-"
+                                    modalComponent={<DeleteIngredientModal ingredientId={ingredient.id}/>}
+                                />
+                                <OpenModalButton
+                                    className="edit-recipe-ingr-buttons"
+                                    buttonText="Edit"
+                                    modalComponent={<EditIngredientModal ingredientId={ingredient.id} recipeId={recipeId} />}
+                                />
+                            </div>
+                        </div>
+                    ))}
                     <OpenModalButton
+                    className="edit-recipe-ingr-buttons"
                     buttonText="Add Ingredient"
                     modalComponent={<AddIngredientModal recipeId={recipe.id} />}
                     />
-                    {/* map through recipe ingredients with 2 columns */}
-                    {ingredients.map(ingredient => (
-                        <div style={{display: "flex", columnGap:15}}>
-                            <li>{ingredient.quantity} {ingredient.measurement} {ingredient.name} {ingredient.desc && (`(${ingredient.desc})`)}</li>
-                            <OpenModalButton
-                                buttonText="-"
-                                modalComponent={<DeleteIngredientModal ingredientId={ingredient.id}/>}
-                            />
-                            <OpenModalButton
-                                buttonText="Edit"
-                                modalComponent={<EditIngredientModal ingredientId={ingredient.id} recipeId={recipeId} />}
-                            />
-                        </div>
-                    ))}
                 </div>
                 <div className="recipe-ingredients">
                     <h1>Instructions:</h1>
-                    <OpenModalButton
-                    buttonText="Add Instruction"
-                    modalComponent={<AddInstructionModal recipeId={recipe.id} />}
-                    />
                     {/* map through recipe intructions */}
                     {sortedInstructions.map(instruction => (
                         <div style={{display: "flex", columnGap:15}}>
-                            <p>{instruction.instruction_num}. {instruction.desc}</p>
-                            <OpenModalButton
-                                buttonText="-"
-                                modalComponent={<DeleteInstructionModal instructionId={instruction.id} />}
-                            />
+                            <p className="recipe-ingredient-container">{instruction.instruction_num}. {instruction.desc}</p>
+                            <div className="edit-recipe-ingr-container">
+                                <OpenModalButton
+                                    style={{height:20, alignSelf:"center"}}
+                                    className="edit-recipe-ingr-buttons"
+                                    buttonText="-"
+                                    modalComponent={<DeleteInstructionModal instructionId={instruction.id} />}
+                                />
+                                <OpenModalButton
+                                        className="edit-recipe-ingr-buttons"
+                                        buttonText="Edit"
+                                        modalComponent={<EditInstructionModal instructionId={instruction.id} recipeId={recipeId} />}
+                                />
+                            </div>
                         </div>
                     ))}
+                    <OpenModalButton
+                    className="edit-recipe-ingr-buttons"
+                    buttonText="Add Instruction"
+                    modalComponent={<AddInstructionModal recipeId={recipe.id} />}
+                    />
                 </div>
                 <OpenModalButton
                     className="delete-recipe"
                     buttonText="Delete Recipe"
                     modalComponent={<DeleteRecipeModal recipeId={recipe.id}/>}
                     />
-                <div className="recipe-page-reviews">
-                    <h1>Reviews</h1>
-                    {/* map through recipe reviews */}
-                    {reviews.map(review => (
-                        <div className="recipe-page-review">
-                            <p>User: {review.username}</p>
-                            <p>Stars: {review.rating} / 5</p>
-                            <p style={{fontStyle:"italic"}}>"{review.content}"</p>
-                        </div>
-                    ))}
-                </div>
             </div>
         </div>
     )

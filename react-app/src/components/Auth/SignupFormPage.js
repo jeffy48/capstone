@@ -70,7 +70,7 @@ function SignupFormPage() {
               required
             />
           </label>
-          <button type="submit">Sign Up</button>
+          <button className="login-buttons" type="submit">Sign Up</button>
         </form>
         <NavLink exact to="/login">Already Have an Account? Login Instead!</NavLink>
       </div>
