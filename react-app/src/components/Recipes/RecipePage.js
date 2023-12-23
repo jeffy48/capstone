@@ -67,7 +67,7 @@ function RecipePage() {
                     <h1>Ingredients:</h1>
                     {/* map through recipe ingredients with 2 columns */}
                     {ingredients.map(ingredient => (
-                        <li>{parseFloat(ingredient.quantity).toFixed(2)} {ingredient.measurement} {ingredient.name} {ingredient.desc && (`(${ingredient.desc})`)}</li>
+                        <li>{ingredient.quantity ? parseFloat(ingredient.quantity).toFixed(2) : null} {ingredient.measurement} {ingredient.name} {ingredient.desc && (`(${ingredient.desc})`)}</li>
                     ))}
                 </div>
                 <div className="recipe-ingredients">
