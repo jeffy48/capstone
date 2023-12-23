@@ -14,19 +14,16 @@ def seed_recipe_ingredients():
     recipe_ingredient2 = RecipeIngredient(
         recipe_id=1,
         name="salt",
-        quantity=1,
         measurement="to taste"
     )
     recipe_ingredient3 = RecipeIngredient(
         recipe_id=1,
         name="black pepper",
-        quantity=1,
         measurement="to taste"
     )
     recipe_ingredient4 = RecipeIngredient(
         recipe_id=1,
         name="onion powder",
-        quantity=1,
         measurement="tbsp",
         desc="or to taste"
     )
@@ -234,13 +231,11 @@ def seed_recipe_ingredients():
     recipe_ingredient36 = RecipeIngredient(
         recipe_id=4,
         name="sea salt",
-        quantity=1,
         measurement="to taste"
     )
     recipe_ingredient37 = RecipeIngredient(
         recipe_id=4,
         name="black pepper",
-        quantity=1,
         measurement="to taste"
     )
     recipe_ingredient38 = RecipeIngredient(
@@ -272,7 +267,6 @@ def seed_recipe_ingredients():
     recipe_ingredient42 = RecipeIngredient(
         recipe_id=4,
         name="red wine vinegar",
-        quantity=1,
         measurement="splash"
     )
     recipe_ingredient43 = RecipeIngredient(
@@ -454,7 +448,6 @@ def seed_recipe_ingredients():
     recipe_ingredient71 = RecipeIngredient(
         recipe_id=7,
         name="salt",
-        quantity=1,
         measurement="touch"
     )
     recipe_ingredient72 = RecipeIngredient(
@@ -550,7 +543,6 @@ def seed_recipe_ingredients():
     recipe_ingredient86 = RecipeIngredient(
         recipe_id=8,
         name="salt",
-        quantity=1,
         measurement="to taste"
     )
     recipe_ingredient87 = RecipeIngredient(
