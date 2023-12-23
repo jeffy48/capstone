@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { updateCollectionThunk } from "../../store/collection";
+import React, { useState } from "react";
 import { useModal } from '../../context/Modal'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import "./EditCollectionModal.css"
-import { updateRecipeThunk } from "../../store/recipe";
-import { useParams } from 'react-router-dom'
 import { createRecipeIngredientThunk } from "../../store/recipeIngredient";
 
 function AddIngredientModal({ recipeId }) {
@@ -30,12 +27,9 @@ function AddIngredientModal({ recipeId }) {
 
         const res = await dispatch(createRecipeIngredientThunk(payload))
 
-        console.log("hi", payload)
-
         if (res.errors) {
             // res.errors is object with keys of fieldnames and values of arrays, each index being an error string
             setErrors(res.errors);
-            console.log(errors.name)
         } else {
             closeModal()
         };

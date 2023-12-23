@@ -34,7 +34,7 @@ function AllRecipesPage() {
                             onError={getDefaultImage}
                             className="recipe-img"
                             src={recipe.image}
-                            alt='recipe-thumbnail-image'
+                            alt='recipe-thumbnail'
                             title={recipe.name}/>
                         <h1>{recipe.name}</h1>
                         <p>Serves {recipe.servings}</p>

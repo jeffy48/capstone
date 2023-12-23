@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, NavLink } from "react-router-dom";
 import { getUserReviewsThunk } from "../../store/review";
-import OpenModalButton from "../Modals/OpenModalButton";
-import DeleteReviewModal from "../Modals/DeleteReviewModal";
 import './MyReviewsPage.css'
 
 function MyReviewsPage() {
@@ -25,12 +23,6 @@ function MyReviewsPage() {
 
     const myReviews = reviews.slice();
 
-    console.log(myReviews)
-
-    const handleEdit = () => {
-        // open modal for editreviewmodal
-    }
-
     return (
         <div className="review-page">
             <div className="review-container">
@@ -40,11 +32,6 @@ function MyReviewsPage() {
                         <NavLink to={`/recipes/${review.recipe_id}`}>Review for {review.recipe_name}</NavLink>
                         <p>Rating: {review.rating} / 5</p>
                         <p>{`"${review.content}"`}</p>
-                        {/* <button>Edit</button>
-                        <OpenModalButton
-                            buttonText="Delete"
-                            modalComponent={<DeleteReviewModal reviewId={review.id} />}
-                        /> */}
                     </div>
                 ))
                 : <h1 style={{marginTop:25, fontSize: 22}}>You do not have any reviews at the moment.</h1>}

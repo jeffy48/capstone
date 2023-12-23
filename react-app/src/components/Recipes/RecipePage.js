@@ -62,7 +62,7 @@ function RecipePage() {
                     {userId === recipe.user_id &&
                     <button onClick={handleEdit}>Edit Recipe</button>}
                 </div>
-                <img onError={getDefaultImage} src={recipe.image}/>
+                <img onError={getDefaultImage} alt="recipe" src={recipe.image}/>
                 <div className="recipe-instructions">
                     <h1>Ingredients:</h1>
                     {/* map through recipe ingredients with 2 columns */}

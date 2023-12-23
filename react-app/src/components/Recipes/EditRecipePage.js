@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { getRecipeThunk } from "../../store/recipe";
 import { getRecipeIngredientsThunk } from "../../store/recipeIngredient";
 import { getRecipeInstructionsThunk } from "../../store/recipeInstruction";
@@ -20,7 +20,6 @@ import EditInstructionModal from "../Modals/EditInstructionModal";
 
 function EditRecipePage() {
     const dispatch = useDispatch()
-    const history = useHistory();
     const { recipeId } = useParams();
     const user = useSelector(state => state.session.user);
     const userId = user ? user.id : null;
@@ -48,8 +47,6 @@ function EditRecipePage() {
     };
 
     const sortedInstructions = instructions.sort((a, b) => a.instruction_num > b.instruction_num ? 1 : -1)
-
-    console.log(ingredients)
 
     return (
         <div className="recipe-page">

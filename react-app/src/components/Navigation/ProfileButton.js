@@ -56,17 +56,6 @@ function ProfileButton({ user }) {
           <>
             <NavLink exact to="/login">Login</NavLink>
             <NavLink exact to="/signup">Sign Up</NavLink>
-            {/* <OpenModalButton
-              buttonText="Log In"
-              onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
-            />
-
-            <OpenModalButton
-              buttonText="Sign Up"
-              onItemClick={closeMenu}
-              modalComponent={<SignupFormModal />}
-            /> */}
           </>
         )}
       </ul>

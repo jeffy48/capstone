@@ -14,7 +14,6 @@ def get_collection(collection_id):
     collectionObj.update(collection[1].to_dict_username())
     return collectionObj
 
-# do i need a get all collections and get a collection if im not going to use it? (would it be considered full crud if i only return a 'read' for get all user collections instead)
 @collection_routes.route('/')
 def get_all_collections():
     collections = db.session.query(Collection, User).join(User, Collection.user_id == User.id).filter(Collection.public == True).all()
@@ -25,25 +24,13 @@ def get_all_collections():
         collectionsObj.update(collections[i][1].to_dict_username())
         res.append(collectionsObj)
     return res
-    # collections = Collection.query.filter_by(public=True).all()
-    # return jsonify([collection.to_dict() for collection in collections])
 
-
-# maybe nest this blueprint in collection_routes.py instead? is there a better way to write this route?
 @user_routes.route('/<int:user_id>/collections')
 @login_required
 def get_user_collections(user_id):
     """
     Query for a user's collections by user_id and returns them in a list of collection dictionaries
     """
-    # collections = db.session.query(Collection, CollectionRecipe).join(CollectionRecipe, Collection.id == CollectionRecipe.collection_id).filter(Collection.user_id == user_id).all()
-    # res = []
-    # for i in range(len(collections)):
-    #     collectionsObj = {}
-    #     collectionsObj.update(collections[i][0].to_dict())
-    #     collectionsObj.update(collections[i][1].to_dict_collection())
-    #     res.append(collectionsObj)
-    # return res
     collections = Collection.query.filter_by(user_id=user_id).all()
     return jsonify([collection.to_dict() for collection in collections])
 
@@ -61,8 +48,6 @@ def get_user_collection_recipes(user_id):
         collectionsObj.update(collections[i][1].to_dict_collection())
         res.append(collectionsObj)
     return res
-    # collections = Collection.query.filter_by(user_id=user_id).all()
-    # return jsonify([collection.to_dict() for collection in collections])
 
 @collection_routes.route('/', methods=['POST'])
 @login_required
@@ -110,7 +95,6 @@ def delete_collection(id):
     A logged in user can delete an existing collection they own
     """
     collection = Collection.query.get(id)
-    # if this doesn't work, change to "if collection is not None"
     if collection:
         db.session.delete(collection)
         db.session.commit()

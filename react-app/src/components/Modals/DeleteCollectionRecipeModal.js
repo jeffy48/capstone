@@ -1,4 +1,3 @@
-import { useHistory } from "react-router-dom";
 import { deleteCollectionRecipeThunk } from "../../store/collectionRecipe";
 import { useModal } from '../../context/Modal'
 import { useDispatch } from "react-redux";

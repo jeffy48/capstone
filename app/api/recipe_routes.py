@@ -6,9 +6,6 @@ from app.api.user_routes import user_routes
 
 recipe_routes = Blueprint('recipes', __name__)
 
-# maybe add an additional all public recipes route and use that OR use this below and filter in frontend
-# maybe get rid of login required since you dont have to be logged in to see all recipes
-# maybe add error handler here
 @recipe_routes.route('/')
 def get_all_recipes():
     """
@@ -17,7 +14,6 @@ def get_all_recipes():
     recipes = Recipe.query.filter_by(public=True).all()
     return jsonify([recipe.to_dict() for recipe in recipes])
 
-# maybe nest this blueprint in recipe_routes.py instead? is there a better way to write this route?
 @user_routes.route('/<int:user_id>/recipes')
 @login_required
 def get_user_recipes(user_id):
@@ -27,20 +23,15 @@ def get_user_recipes(user_id):
     recipes = Recipe.query.filter_by(user_id=user_id).all()
     return jsonify([recipe.to_dict() for recipe in recipes])
 
-# maybe get rid of login required since you dont have to be logged in to see a recipe
-# maybe add error handler here
 @recipe_routes.route('/<int:id>')
 def get_recipe(id):
     """
     Query for one recipe by id and returns recipe dictionary
     """
-    # recipe = Recipe.query.get(id)
-    # return recipe.to_dict()
     recipe = db.session.query(Recipe, User).join(User, Recipe.user_id == User.id).filter(Recipe.id == id).one()
     res = {}
     res.update(recipe[0].to_dict())
     res.update(recipe[1].to_dict_username())
-    print(res)
     return jsonify(res)
 
 
@@ -98,7 +89,6 @@ def delete_recipe(id):
     A logged in user can delete their existing recipe by id
     """
     recipe = Recipe.query.get(id)
-    # if this doesn't work, change to "if recipe is not None"
     if recipe:
         db.session.delete(recipe)
         db.session.commit()

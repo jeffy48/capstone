@@ -40,16 +40,12 @@ function CreateRecipePage() {
             image: image
         };
 
-        console.log(payload)
-
         const res = await dispatch(createRecipeThunk(payload));
         // res is recipe obj on success and object w key errors on failure
-        console.log(res)
-        console.log(res.errors)
+
         if (res.errors) {
             // res.errors is object with keys of fieldnames and values of arrays, each index being an error string
             setErrors(res.errors);
-            console.log(errors.name)
         } else {
             history.push('/myrecipes')
         };

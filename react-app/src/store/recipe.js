@@ -77,12 +77,10 @@ export const createRecipeThunk = (payload) => async dispatch => {
     });
     try {
         const recipe = await res.json()
-        console.log(recipe)
         dispatch(createRecipe(recipe))
         return recipe
     }
     catch(error) {
-        console.log("hi", error)
         return error
     }
 };
@@ -128,7 +126,7 @@ export default function reducer(state = initialState, action) {
         case GET_RECIPE:
             return {...state, recipe: action.payload}
         case CREATE_RECIPE:
-            return {...state, createdRecipe: action.payload}
+            return {...state, allRecipes: [...state.allRecipes, action.payload], createdRecipe: action.payload}
         case UPDATE_RECIPE:
             return {...state, recipe: action.payload, updatedRecipe: action.payload}
         case DELETE_RECIPE:

@@ -6,9 +6,6 @@ from app.api.recipe_routes import recipe_routes
 
 ingredient_routes = Blueprint('ingredients', __name__)
 
-# maybe get rid of login required since you dont have to be logged in to see a recipe's ingredients
-# maybe add error handler here
-# should recipe ingredients and instructions be in another route file? maybe nest the blueprints? could make it more readable
 @recipe_routes.route('/<int:recipe_id>/ingredients')
 def get_recipe_ingredients(recipe_id):
     """
@@ -17,7 +14,6 @@ def get_recipe_ingredients(recipe_id):
     ingredients = RecipeIngredient.query.filter_by(recipe_id=recipe_id).all()
     return jsonify([ingredient.to_dict() for ingredient in ingredients])
 
-# should recipe ingredients and instructions be in another route file? maybe nest the blueprints? could make it more readable
 @ingredient_routes.route('/', methods=['POST'])
 @login_required
 def create_recipe_ingredients():
@@ -40,8 +36,6 @@ def create_recipe_ingredients():
         return ingredient.to_dict()
     return {'errors': form.errors}, 400
 
-# should recipe ingredients and instructions be in another route file? maybe nest the blueprints? could make it more readable
-# do i need both params here, or only ingredient_id
 @ingredient_routes.route('/<int:id>', methods=['PUT'])
 @login_required
 def update_recipe_ingredient(id):
@@ -61,8 +55,6 @@ def update_recipe_ingredient(id):
         return ingredient.to_dict()
     return {'errors': form.errors}, 400
 
-# should recipe ingredients and instructions be in another route file? maybe nest the blueprints? could make it more readable
-# do i need both params here, or only ingredient_id
 @ingredient_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_recipe_ingredient(id):

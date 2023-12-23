@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useModal } from '../../context/Modal'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import "./EditCollectionModal.css"
 import { createRecipeInstructionThunk } from "../../store/recipeInstruction";
 
@@ -23,12 +23,10 @@ function AddInstructionModal({ recipeId }) {
 
         const res = await dispatch(createRecipeInstructionThunk(payload))
 
-        console.log("hi", payload)
 
         if (res.errors) {
             // res.errors is object with keys of fieldnames and values of arrays, each index being an error string
             setErrors(res.errors);
-            console.log(errors.name)
         } else {
             closeModal()
         };

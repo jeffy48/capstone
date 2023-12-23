@@ -1,6 +1,5 @@
 import { useModal } from '../../context/Modal'
 import { useDispatch } from "react-redux";
-import { deletedRecipeIngredientThunk } from "../../store/recipeIngredient";
 import { deletedRecipeInstructionThunk } from '../../store/recipeInstruction';
 import "./DeleteCollectionRecipeModal.css"
 

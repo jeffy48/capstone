@@ -23,8 +23,6 @@ function EditReviewModal({ reviewId, recipeId, userId }) {
 
         const res = await dispatch(updateReviewThunk(reviewId, payload))
 
-        console.log("hi", payload)
-
         if (res.errors) {
             // res.errors is object with keys of fieldnames and values of arrays, each index being an error string
             setErrors(res.errors);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 import { getCollectionRecipesThunk } from "../../store/collectionRecipe";
@@ -67,7 +67,7 @@ function CollectionPage() {
                                     onError={getDefaultImage}
                                     className="recipe-img"
                                     src={recipe.recipe_image}
-                                    alt='recipe-thumbnail-image'
+                                    alt='recipe-thumbnail'
                                     title={recipe.recipe_name}/>
                                 <h1>{recipe.recipe_name}</h1>
                                 <p>Serves {recipe.recipe_servings}</p>

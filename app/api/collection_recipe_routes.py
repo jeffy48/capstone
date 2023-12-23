@@ -13,7 +13,6 @@ def get_collection_recipes(collection_id):
     """
     recipes = db.session.query(CollectionRecipe, Recipe, Collection, User).join(Recipe, CollectionRecipe.recipe_id == Recipe.id).join(Collection, CollectionRecipe.collection_id == Collection.id).join(User, Collection.user_id == User.id).filter(CollectionRecipe.collection_id == collection_id).all()
     res = []
-    print(recipes)
     for i in range(len(recipes)):
         recipeObj = {}
         recipeObj.update(recipes[i][0].to_dict())
@@ -22,10 +21,6 @@ def get_collection_recipes(collection_id):
         recipeObj.update(recipes[i][3].to_dict_username())
         res.append(recipeObj)
     return res
-    # recipes = db.session.query(CollectionRecipe, Recipe).join(Recipe, CollectionRecipe.recipe_id == Recipe.id).filter(CollectionRecipe.collection_id == collection_id).all()
-    # res = [recipe[1] for recipe in recipes]
-
-    return jsonify([recipe.to_dict() for recipe in res])
 
 @collection_recipe_routes.route('/')
 @login_required

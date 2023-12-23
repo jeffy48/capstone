@@ -12,8 +12,6 @@ def get_recipe_reviews(recipe_id):
     """
     Get all reviews for a recipe
     """
-    # reviews = Review.query.filter_by(recipe_id=recipe_id).all()
-    # return jsonify([review.to_dict() for review in reviews])
     reviews = db.session.query(Review, User).join(User, Review.user_id == User.id).filter(Review.recipe_id == recipe_id).all()
     res = []
     for i in range(len(reviews)):
@@ -31,7 +29,6 @@ def get_user_reviews(user_id):
     """
     reviews = db.session.query(Review, User, Recipe).join(User, Review.user_id == User.id).join(Recipe, Review.recipe_id == Recipe.id).filter(Review.user_id == user_id).all()
     res = []
-    print(reviews)
     for i in range(len(reviews)):
         reviewObj = {}
         reviewObj.update(reviews[i][0].to_dict())
@@ -39,8 +36,6 @@ def get_user_reviews(user_id):
         reviewObj.update(reviews[i][2].to_dict_name())
         res.append(reviewObj)
     return res
-    # reviews = Review.query.filter_by(user_id=user_id).all()
-    # return jsonify([review.to_dict() for review in reviews])
 
 @review_routes.route('/', methods=['POST'])
 def create_review():

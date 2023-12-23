@@ -1,18 +1,15 @@
-import { useHistory } from "react-router-dom";
 import { deleteReviewThunk } from "../../store/review";
 import { useModal } from '../../context/Modal'
 import { useDispatch } from "react-redux";
 import "./DeleteCollectionRecipeModal.css"
 
 function DeleteReviewModal({ reviewId }) {
-    const history = useHistory()
     const dispatch = useDispatch()
     const { closeModal } = useModal()
 
     const handleDelete = () => {
         dispatch(deleteReviewThunk(reviewId))
         closeModal();
-        // history.push("/myreviews")
     }
 
     const handleClick = () => {

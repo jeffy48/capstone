@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { updateCollectionThunk } from "../../store/collection";
 import { useModal } from '../../context/Modal'
 import { useDispatch } from "react-redux";
@@ -29,20 +29,13 @@ function EditCollectionModal({ collectionId, userId }) {
 
         const res = await dispatch(updateCollectionThunk(collectionId, payload))
 
-        console.log("hi", res)
-
         if (res.errors) {
             // res.errors is object with keys of fieldnames and values of arrays, each index being an error string
             setErrors(res.errors);
-            console.log(errors.name)
         } else {
             closeModal()
         };
     }
-
-    // const handleClick = () => {
-    //     closeModal();
-    // }
 
     return (
         <div className="create-recipe">

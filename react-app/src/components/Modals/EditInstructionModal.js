@@ -27,12 +27,9 @@ function EditInstructionModal({ instructionId, recipeId }) {
 
         const res = await dispatch(updateRecipeInstructionThunk(payload, instructionId))
 
-        console.log("hi", payload)
-
         if (res.errors) {
             // res.errors is object with keys of fieldnames and values of arrays, each index being an error string
             setErrors(res.errors);
-            console.log(errors.name)
         } else {
             closeModal()
         };
